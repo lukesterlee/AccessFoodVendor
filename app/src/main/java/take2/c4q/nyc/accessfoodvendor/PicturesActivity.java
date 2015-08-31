@@ -3,23 +3,22 @@ package take2.c4q.nyc.accessfoodvendor;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class RegisterActivity extends AppCompatActivity {
+public class PicturesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_pictures);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register, menu);
+        getMenuInflater().inflate(R.menu.menu_pictures, menu);
         return true;
     }
 
@@ -37,8 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void toPic (View v){
-        Intent intent = new Intent(RegisterActivity.this, PicturesActivity.class);
+    public void toR (View v){
+        Intent intent = new Intent(PicturesActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 }

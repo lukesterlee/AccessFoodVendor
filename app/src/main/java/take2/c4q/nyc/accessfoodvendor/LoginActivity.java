@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
@@ -78,6 +79,9 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                             Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                         } else if (parseUser.isNew()) {
+                            ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                            installation.put("user", parseUser);
+                            installation.saveInBackground();
                             Toast.makeText(getApplicationContext(), "User signed up and logged in through Twitter!", Toast.LENGTH_SHORT).show();
                             Log.d("MyApp", "User signed up and logged in through Twitter!");
                             goToRegisterActivity();
@@ -85,6 +89,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else  {
                             ParseObject truck = parseUser.getParseObject("truck");
+                            ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                            installation.put("user", parseUser);
+                            installation.saveInBackground();
                             if (truck == null) {
                                 Toast.makeText(getApplicationContext(), "User logged in through Twitter!", Toast.LENGTH_SHORT).show();
                                 Log.d("MyApp", "User logged in through Twitter!");

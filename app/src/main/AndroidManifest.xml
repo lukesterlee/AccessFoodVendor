@@ -84,6 +84,10 @@
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name=".PicturesActivity"
+            android:label="@string/title_activity_pictures" >
+        </activity>
     </application>
 
 </manifest>
