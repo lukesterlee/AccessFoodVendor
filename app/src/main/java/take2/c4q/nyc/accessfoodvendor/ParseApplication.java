@@ -4,8 +4,8 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
-import com.parse.ParseFacebookUtils;
-
+import com.parse.ParseInstallation;
+import com.parse.ParseTwitterUtils;
 
 public class ParseApplication extends Application {
 
@@ -18,13 +18,10 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-		/*
-		 * Add Parse initialization code here
-		 */
 
         Parse.initialize(this);
-        ParseFacebookUtils.initialize(this);
-
+        ParseTwitterUtils.initialize("xlSQblNeZ1cR07HRZiGqPfa4t", "IsuirBTeqi3EWOs7kYGMyYzThaiba78sCXYLX3q5G4Ie6PdffJ");
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
         ParseACL defaultACL = new ParseACL();
 
@@ -35,5 +32,3 @@ public class ParseApplication extends Application {
         ParseACL.setDefaultACL(defaultACL, true);
     }
 }
-
-
