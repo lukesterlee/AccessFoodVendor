@@ -12,51 +12,46 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
+        android:name=".ParseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="take2.c4q.nyc.accessfoodvendor.ParseApplication">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
-
         </activity>
-
-
-        <activity android:name=".LoginActivity">
-
+        <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAuxatcOumnH02sb-6xxLxnWZ0051JvCKw" />
-
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="@string/parse_app_id" />
         <meta-data
             android:name="com.parse.CLIENT_KEY"
             android:value="@string/parse_client_key" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
 
-
+        <activity
+            android:name=".RegisterNewTruck"
+            android:label="@string/title_activity_register_new_truck" >
+        </activity>
     </application>
 
 </manifest>
