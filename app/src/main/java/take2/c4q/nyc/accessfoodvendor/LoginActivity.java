@@ -13,21 +13,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.login.widget.LoginButton;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParseFacebookUtils;
+import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-import java.util.Arrays;
+// TODO : remove bar
 
 public class LoginActivity extends AppCompatActivity {
 
-    CallbackManager callbackManager;
 
     protected EditText usernameEditText;
     protected EditText passwordEditText;
@@ -41,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     protected LinearLayout layout;
     protected ParseApplication app;
 
-    private LoginButton mButtonFacebookLogin;
+    private Button twitterLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +44,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // facebook stuff
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
+        //FacebookSdk.sdkInitialize(getApplicationContext());
+        //callbackManager = CallbackManager.Factory.create();
 
         setContentView(R.layout.activity_login);
 
-        FacebookSdk.clearLoggingBehaviors();
+        //FacebookSdk.clearLoggingBehaviors();
 
         app = new ParseApplication();
 
@@ -68,37 +63,36 @@ public class LoginActivity extends AppCompatActivity {
         backButton = (Button) findViewById(R.id.BackButtonID);
         continueButton = (Button) findViewById(R.id.ContinueButtonID);
         layout = (LinearLayout) findViewById(R.id.layoutID);
-        mButtonFacebookLogin = (LoginButton) findViewById(R.id.login_button);
+        //mButtonFacebookLogin = (LoginButton) findViewById(R.id.login_button);
+        twitterLoginButton = (Button) findViewById(R.id.twitter_login_button);
 
-        mButtonFacebookLogin.setOnClickListener(new View.OnClickListener() {
+
+        twitterLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ParseFacebookUtils.logInWithReadPermissionsInBackground(LoginActivity.this, Arrays.asList("public_profile", "user_friends", "email"), new LogInCallback() {
+                ParseTwitterUtils.logIn(LoginActivity.this, new LogInCallback() {
                     @Override
-                    public void done(ParseUser user, ParseException err) {
-                        if (user == null) {
-                            Toast.makeText(getApplicationContext(), "Uh oh. The user cancelled the Facebook login.", Toast.LENGTH_SHORT).show();
+                    public void done(ParseUser parseUser, ParseException e) {
+                        if (parseUser == null) {
+                            Toast.makeText(getApplicationContext(), "Uh oh. The user cancelled the Twtter login.", Toast.LENGTH_SHORT).show();
                             Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
-                        } else if (user.isNew()) {
-                            Profile profile = Profile.getCurrentProfile();
-                            user.put("first_name", profile.getFirstName());
-                            user.put("last_name", profile.getLastName());
-                            user.put("profile_url", profile.getProfilePictureUri(300, 300).toString());
-                            user.saveInBackground();
-
-                            Toast.makeText(getApplicationContext(), "User signed up and logged in through Facebook!", Toast.LENGTH_SHORT).show();
-                            Log.d("MyApp", "User signed up and logged in through Facebook!");
+                        } else if (parseUser.isNew()) {
+                            Toast.makeText(getApplicationContext(), "User signed up and logged in through Twitter!", Toast.LENGTH_SHORT).show();
+                            Log.d("MyApp", "User signed up and logged in through Twitter!");
                             goToMainActivity();
+
                         } else {
-                            Profile profile = Profile.getCurrentProfile();
-                            Toast.makeText(getApplicationContext(), "User logged in through Facebook!", Toast.LENGTH_SHORT).show();
-                            Log.d("MyApp", "User logged in through Facebook!");
+                            Toast.makeText(getApplicationContext(), "User logged in through Twitter!", Toast.LENGTH_SHORT).show();
+                            Log.d("MyApp", "User logged in through Twitter!");
                             goToMainActivity();
                         }
                     }
                 });
             }
         });
+
+
+
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -191,8 +185,8 @@ public class LoginActivity extends AppCompatActivity {
                     });
                 }
             }
-        });
-    }
+        });}
+
 
     private void setUpListeners(boolean isResumed) {
         if (isResumed) {
@@ -244,7 +238,7 @@ public class LoginActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void showSignUpFields (View v){
-        mButtonFacebookLogin.setVisibility(View.GONE);
+        twitterLoginButton.setVisibility(View.GONE);
         usernameEditText.setVisibility(View.GONE);
         passwordEditText.setVisibility(View.GONE);
         usernameEditText2.setVisibility(View.VISIBLE);
@@ -258,7 +252,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void back (View v){
-        mButtonFacebookLogin.setVisibility(View.VISIBLE);
+        twitterLoginButton.setVisibility(View.VISIBLE);
         usernameEditText.setVisibility(View.VISIBLE);
         passwordEditText.setVisibility(View.VISIBLE);
         usernameEditText2.setVisibility(View.GONE);
@@ -271,11 +265,6 @@ public class LoginActivity extends AppCompatActivity {
         layout.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
-    }
 
     private void goToMainActivity() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -284,6 +273,5 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
 }
+
