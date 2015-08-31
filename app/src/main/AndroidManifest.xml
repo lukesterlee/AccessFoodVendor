@@ -88,6 +88,14 @@
             android:name=".PicturesActivity"
             android:label="@string/title_activity_pictures" >
         </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_menu" >
+        </activity>
+        <activity
+            android:name=".HoursActivity"
+            android:label="@string/title_activity_hours" >
+        </activity>
     </application>
 
 </manifest>

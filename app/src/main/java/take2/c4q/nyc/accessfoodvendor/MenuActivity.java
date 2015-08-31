@@ -7,18 +7,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class PicturesActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pictures);
+        setContentView(R.layout.activity_menu);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_pictures, menu);
+        getMenuInflater().inflate(R.menu.menu_menu, menu);
         return true;
     }
 
@@ -36,12 +36,12 @@ public class PicturesActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void toR (View v){
-        Intent intent = new Intent(PicturesActivity.this, RegisterActivity.class);
+    public void toPic (View v){
+        Intent intent = new Intent(MenuActivity.this, PicturesActivity.class);
         startActivity(intent);
     }
-    public void toMenu (View v){
-        Intent intent = new Intent(PicturesActivity.this, MenuActivity.class);
+    public void toHours (View v){
+        Intent intent = new Intent(MenuActivity.this, HoursActivity.class);
         startActivity(intent);
     }
 }

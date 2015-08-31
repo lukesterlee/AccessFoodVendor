@@ -25,4 +25,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_pictures">PicturesActivity</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_hours">HoursActivity</string>
 </resources>

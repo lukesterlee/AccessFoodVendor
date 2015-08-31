@@ -40,29 +40,14 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/orange"
             android:ems="10"
-            android:hint="Truck Name"
+            android:hint="phone number"
             android:textColor="@color/orange"
             android:textColorHint="@color/orange"
             android:inputType="phone"/>
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/emailID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
-            android:ems="10"
-            android:hint="Truck Name"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
-            android:inputType="textWebEmailAddress"/>
-
-    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -74,7 +59,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/orange"
             android:ems="10"
-            android:hint="Truck Name"
+            android:hint="email address"
             android:textColor="@color/orange"
             android:textColorHint="@color/orange"
             android:inputType="textWebEmailAddress"/>
@@ -91,7 +76,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/orange"
             android:ems="10"
-            android:hint="Truck Name"
+            android:hint="description"
             android:textColor="@color/orange"
             android:textColorHint="@color/orange"/>
 
@@ -107,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:src="@drawable/empty"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="20dp"
