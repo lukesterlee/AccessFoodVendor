@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="take2.c4q.nyc.accessfoodvendor.RegisterActivity"
+    android:orientation="vertical">
+
+    <TextView android:text="Register Truck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/primaryText"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/truckNameID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange"
+        android:ems="10"
+        android:hint="@string/username_hint"
+        android:textColor="@color/orange"
+        android:textColorHint="@color/orange" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+
+</LinearLayout>

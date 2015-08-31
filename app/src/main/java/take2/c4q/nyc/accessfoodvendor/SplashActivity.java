@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
         if (isUserLoggedIn()) {
-            goToMainActivity();
+            goToRegisterActivity();
         } else {
             new Handler().postDelayed(new Runnable() {
 
@@ -89,6 +89,13 @@ public class SplashActivity extends AppCompatActivity {
 
     private void goToMainActivity() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+    private void goToRegisterActivity() {
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

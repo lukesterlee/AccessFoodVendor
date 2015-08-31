@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -74,17 +75,26 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
                         if (parseUser == null) {
-                            Toast.makeText(getApplicationContext(), "Uh oh. The user cancelled the Twtter login.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                             Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                         } else if (parseUser.isNew()) {
                             Toast.makeText(getApplicationContext(), "User signed up and logged in through Twitter!", Toast.LENGTH_SHORT).show();
                             Log.d("MyApp", "User signed up and logged in through Twitter!");
-                            goToMainActivity();
+                            goToRegisterActivity();
 
-                        } else {
-                            Toast.makeText(getApplicationContext(), "User logged in through Twitter!", Toast.LENGTH_SHORT).show();
-                            Log.d("MyApp", "User logged in through Twitter!");
-                            goToMainActivity();
+                        }
+                        else  {
+                            ParseObject truck = parseUser.getParseObject("truck");
+                            if (truck == null) {
+                                Toast.makeText(getApplicationContext(), "User logged in through Twitter!", Toast.LENGTH_SHORT).show();
+                                Log.d("MyApp", "User logged in through Twitter!");
+                                goToRegisterActivity();
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(), "User logged in through Twitter!", Toast.LENGTH_SHORT).show();
+                                Log.d("MyApp", "User logged in through Twitter!");
+                                goToMainActivity();
+                            }
                         }
                     }
                 });
@@ -268,6 +278,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private void goToMainActivity() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private void goToRegisterActivity() {
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

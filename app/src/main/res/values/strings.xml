@@ -21,4 +21,7 @@
     <string name="sign_up_text">Sign Up!</string>
     <string name="logout_label">Logout</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
