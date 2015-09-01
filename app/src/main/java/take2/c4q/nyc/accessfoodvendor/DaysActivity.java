@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class HoursActivity extends AppCompatActivity {
+public class DaysActivity extends AppCompatActivity {
+
+    private String objectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hours);
+        setContentView(R.layout.activity_days);
+
+        //objectId = getIntent().getStringExtra("objectId");
+
     }
 
     @Override

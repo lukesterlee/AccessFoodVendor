@@ -41,7 +41,7 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void toHours (View v){
-        Intent intent = new Intent(MenuActivity.this, HoursActivity.class);
+        Intent intent = new Intent(MenuActivity.this, DaysActivity.class);
         startActivity(intent);
     }
 }

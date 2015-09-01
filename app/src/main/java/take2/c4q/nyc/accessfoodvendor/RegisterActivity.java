@@ -3,7 +3,6 @@ package take2.c4q.nyc.accessfoodvendor;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.saveInBackground();
 
                     String objectId = newVendor.getObjectId();
-                    Intent intent = new Intent(RegisterActivity.this, PicturesActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, DaysActivity.class);
                     intent.putExtra("objectId", objectId);
                     startActivity(intent);
                 }
