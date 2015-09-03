@@ -5,13 +5,17 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+
     <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryColorDark</item>
+        <item name="android:textColor">@color/primaryColorDark</item>
+        <item name="color">@color/primaryColorDark</item>
+        <item name="android:textColorHint">@color/accentColor</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:dialogTheme">@style/Theme.AppCompat.Light.Dialog</item>
     </style>
-
 
 
 </resources>

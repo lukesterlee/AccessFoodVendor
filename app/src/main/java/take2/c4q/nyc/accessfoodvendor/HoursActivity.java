@@ -1,16 +1,24 @@
 package take2.c4q.nyc.accessfoodvendor;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
 
 public class HoursActivity extends AppCompatActivity {
+    RadioButton monOpeningAM;
+    RadioButton monOpeningPM;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hours);
+
+        monOpeningAM = (RadioButton) findViewById(R.id.monOpenAMid);
+        monOpeningPM = (RadioButton) findViewById(R.id.monOpenPmid);
     }
 
     @Override
@@ -33,5 +41,17 @@ public class HoursActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void checkAM (View v){
+        if (monOpeningPM.isChecked()) {
+            monOpeningPM.setChecked(false);
+            monOpeningAM.setChecked(true);
+        }
+    }
+    public void checkPM (View v){
+        if (monOpeningAM.isChecked()) {
+            monOpeningAM.setChecked(false);
+            monOpeningPM.setChecked(true);
+        }
     }
 }

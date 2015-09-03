@@ -1,9 +1,8 @@
 package take2.c4q.nyc.accessfoodvendor;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
         phoneNumber = (EditText) findViewById(R.id.phoneNumberID);
         email = (EditText) findViewById(R.id.emailFieldID);
         description = (EditText) findViewById(R.id.descriptionID);
+
+
 
     }
 
