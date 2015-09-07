@@ -96,6 +96,17 @@
             android:name=".HoursActivity"
             android:label="@string/title_activity_hours" >
         </activity>
+
+
+        <activity
+            android:name=".AdditionalInfoActivity"
+            android:label="Additional Information" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

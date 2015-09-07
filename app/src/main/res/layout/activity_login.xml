@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@color/primaryColor">
 
     <TextView
         android:layout_marginTop="20dp"
@@ -14,9 +14,16 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Access Food"
-        android:textColor="@color/primaryColor"
+        android:textColor="@color/white"
         android:textSize="40sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="93dp"
+        android:id="@+id/icon"
+        android:src="@drawable/whitelogo"
+        android:layout_gravity="center_horizontal" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_marginTop="100dp"
@@ -27,11 +34,13 @@
             android:id="@+id/usernameField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="@string/username_hint"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange" />
+            android:inputType="text"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textIsSelectable="true" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -43,28 +52,29 @@
             android:id="@+id/passwordField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="@string/password_hint"
             android:inputType="textPassword"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange" />
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff" />
 
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <EditText
             android:id="@+id/usernameField2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="New Username"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:visibility="gone" />
 
     </android.support.design.widget.TextInputLayout>
@@ -79,12 +89,12 @@
             android:id="@+id/passwordField2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="New Password"
             android:inputType="textPassword"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:visibility="gone" />
 
     </android.support.design.widget.TextInputLayout>
@@ -98,12 +108,12 @@
             android:id="@+id/emailFieldID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="@string/email_hint"
             android:inputType="textEmailAddress"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:visibility="gone"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -126,8 +136,9 @@
                 android:id="@+id/twitter_login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:text="sign in with twitter"/>
+                android:textColor="@color/primaryColor"
+                android:text="sign in with twitter"
+                android:background="#ffffff" />
 
         </LinearLayout>
 

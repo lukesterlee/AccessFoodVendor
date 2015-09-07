@@ -3,15 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="take2.c4q.nyc.accessfoodvendor.RegisterActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#03a9f4">
 
     <TextView android:text="Register Truck"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:textColor="@color/orange"
+        android:textSize="30sp"
+        android:textColor="@color/white"
         android:gravity="center"/>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="93dp"
+        android:id="@+id/icon"
+        android:src="@drawable/whitelogo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_marginTop="20dp"
@@ -22,11 +32,11 @@
         android:id="@+id/truckNameID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/orange"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:hint="Truck Name"
-        android:textColor="@color/orange"
-        android:textColorHint="@color/orange" />
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -38,11 +48,11 @@
             android:id="@+id/phoneNumberID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="phone number"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:inputType="phone"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -57,12 +67,29 @@
             android:id="@+id/emailFieldID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="email address"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:inputType="textWebEmailAddress"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/twitterID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:hint="twitter"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:inputType="text"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -74,11 +101,12 @@
             android:id="@+id/descriptionID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="description"
-            android:textColor="@color/orange"
-            android:textColorHint="@color/orange"/>
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:inputType="text"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -127,7 +155,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="next"
-            android:onClick="toPic"/>
+            android:onClick="toPic"
+            android:background="#ffffff" />
 
     </LinearLayout>
 

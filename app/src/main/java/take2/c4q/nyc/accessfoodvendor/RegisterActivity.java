@@ -19,10 +19,12 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText phoneNumber;
     private EditText email;
     private EditText description;
+    private EditText twtterHandle;
     String truckNameString;
     String phoneNumberString;
     String emailString;
     String descriptionString;
+    String twitterString;
 
 
     @Override
@@ -34,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         phoneNumber = (EditText) findViewById(R.id.phoneNumberID);
         email = (EditText) findViewById(R.id.emailFieldID);
         description = (EditText) findViewById(R.id.descriptionID);
+        twtterHandle = (EditText) findViewById(R.id.twitterID);
 
 
 
@@ -64,7 +67,9 @@ public class RegisterActivity extends AppCompatActivity {
         truckNameString = truckName.getText().toString();
         phoneNumberString = phoneNumber.getText().toString();
         emailString = email.getText().toString();
+        twitterString = twtterHandle.getText().toString();
         descriptionString = description.getText().toString() + " ";
+
 
         if (!truckNameString.equals("") && (!phoneNumberString.equals("") && (!emailString.equals("")))){
 
@@ -72,7 +77,9 @@ public class RegisterActivity extends AppCompatActivity {
             newVendor.put("name", truckNameString);
             newVendor.put("phone", phoneNumberString);
             newVendor.put("email", emailString);
+            newVendor.put("twitter", twitterString);
             newVendor.put("description", descriptionString);
+
             newVendor.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -81,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.saveInBackground();
 
                     String objectId = newVendor.getObjectId();
-                    Intent intent = new Intent(RegisterActivity.this, PicturesActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, AdditionalInfoActivity.class);
                     intent.putExtra("objectId", objectId);
                     startActivity(intent);
                 }
