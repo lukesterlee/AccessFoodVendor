@@ -299,9 +299,15 @@ public class AdditionalInfoActivity extends FragmentActivity {
 
             }
 
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
+//             Create a new instance of TimePickerDialog and return it
+//            return new TimePickerDialog(
+//                    new ContextThemeWrapper(getActivity(),R.style.Dialog), this, hour, minute,
+//                    DateFormat.is24HourFormat(getActivity()));
+
+             return new TimePickerDialog(
+                    getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
+
         }
 
         public void setEditText(EditText editText){

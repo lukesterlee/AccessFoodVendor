@@ -12,10 +12,17 @@
         <item name="colorPrimaryDark">@color/primaryColorDark</item>
         <item name="android:textColor">@color/primaryColorDark</item>
         <item name="color">@color/primaryColorDark</item>
-        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColorHint">@color/primaryColorDark</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:dialogTheme">@style/Theme.AppCompat.Light.Dialog</item>
+
+
     </style>
 
+    <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/primaryColorDark</item>
+        <item name="colorPrimaryDark">@color/primaryColor</item>
+        <item name="colorAccent">@color/primaryColor</item>
+    </style>
 
-</resources>
+    </resources>
