@@ -6,13 +6,32 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 public class PicturesActivity extends AppCompatActivity {
+    private String objectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictures);
+
+        Intent intent = getIntent();
+        objectId = intent.getStringExtra("objectId");
+
+        Button addpicBtn = (Button)findViewById(R.id.add_pics);
+        addpicBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PicDialog picDialog = new PicDialog();
+
+                Bundle bundle = new Bundle();
+                bundle.putString(Constant.EXTRA_KEY_OBJECT_ID, objectId);
+
+
+                picDialog.show(getSupportFragmentManager(), "picD");
+            }
+        });
     }
 
     @Override
