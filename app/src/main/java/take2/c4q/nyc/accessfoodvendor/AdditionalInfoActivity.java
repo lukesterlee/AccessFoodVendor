@@ -233,11 +233,25 @@ public class AdditionalInfoActivity extends FragmentActivity {
 
                             currentVendor.saveInBackground();
 
+                            Intent intent = new Intent(AdditionalInfoActivity.this, LocationActivity.class);
+                            intent.putExtra("objectId", objectId);
+                            startActivity(intent);
+
                         }
                     }
 
                 });
 
+            }
+        });
+
+        Button skipToLocationBtn = (Button)findViewById(R.id.to_location_btn);
+        skipToLocationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdditionalInfoActivity.this, LocationActivity.class);
+                intent.putExtra("objectId", objectId);
+                startActivity(intent);
             }
         });
     }

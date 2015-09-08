@@ -28,7 +28,17 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.Base" >
+        android:theme="@style/AppTheme.Base"
+        >
+
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+
+
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -48,9 +58,7 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAuxatcOumnH02sb-6xxLxnWZ0051JvCKw" />
+
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="@string/parse_app_id" />
@@ -102,13 +110,26 @@
             android:name=".AdditionalInfoActivity"
             android:label="Additional Information"
             android:theme="@style/AppTheme.Base"
-            >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
 
         </activity>
+
+        <activity
+            android:name=".LocationActivity"
+            android:label="Additional Information"
+            android:theme="@style/AppTheme.Base"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCEjfo1XrMfd0R4NyArPgC8HY9mhj7RgiM"/>
     </application>
 
 </manifest>

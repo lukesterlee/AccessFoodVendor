@@ -544,9 +544,9 @@
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Next"
+            android:text="Skip to Next"
             android:background="@color/primaryColorLight"
-            android:id="@+id/location_btn"
+            android:id="@+id/to_location_btn"
             android:layout_marginTop="10dp"/>
 
 
