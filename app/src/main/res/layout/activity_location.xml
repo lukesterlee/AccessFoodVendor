@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context="take2.c4q.nyc.accessfoodvendor.LocationActivity"
+    android:orientation="vertical"
+    android:background="@color/primaryColor"
+    android:padding="10dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5">
+
+        <ImageView
+            android:layout_width="118dp"
+            android:layout_height="60dp"
+            android:id="@+id/icon"
+            android:src="@drawable/whitelogo"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="179dp"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="345dp"
+            android:layout_height="wrap_content"
+            android:text="Please drag the blue marker to set your location"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/map_container">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/map"
+            tools:context=".MapsActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center">
+
+
+    <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/crossst_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:ems="10"
+                android:hint="Cross Street 1"
+                android:inputType="text"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textIsSelectable="true"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/crossst_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:ems="10"
+                android:hint="Cross Street 2"
+                android:inputType="text"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textIsSelectable="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+    <!-- -->
+            <!--<EditText-->
+                <!--android:id="@+id/borough"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:backgroundTint="@color/white"-->
+                <!--android:ems="10"-->
+                <!--android:hint="Borough"-->
+                <!--android:inputType="textPassword"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:textColorHint="#ffffff" />-->
+    <!-- -->
+        <!--</android.support.design.widget.TextInputLayout>-->
+    <!-- -->
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+    <!-- -->
+            <!--<EditText-->
+                <!--android:id="@+id/zipcode"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:backgroundTint="@color/white"-->
+                <!--android:ems="10"-->
+                <!--android:hint="Zip Code"-->
+                <!--android:inputType="textPassword"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:textColorHint="#ffffff" />-->
+    <!-- -->
+        <!--</android.support.design.widget.TextInputLayout>-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <Button
+                android:id="@+id/map_save_button"
+                android:layout_width="161dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryColor"
+                android:text="Save"
+                android:background="#ffffff" />
+
+            <Button
+                android:id="@+id/map_skip_button"
+                android:layout_width="161dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryColor"
+                android:text="Skip to next"
+                android:background="#ffffff" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+
