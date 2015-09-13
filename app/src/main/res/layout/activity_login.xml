@@ -25,6 +25,17 @@
         android:src="@drawable/whitelogo"
         android:layout_gravity="center_horizontal" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="for Trucks"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp" />
+
     <android.support.design.widget.TextInputLayout
         android:layout_marginTop="100dp"
         android:layout_width="match_parent"

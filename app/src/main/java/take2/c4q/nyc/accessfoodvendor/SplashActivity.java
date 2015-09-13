@@ -1,11 +1,15 @@
 package take2.c4q.nyc.accessfoodvendor;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.VideoView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -21,7 +25,47 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        setContentView(new GifView(this));
+
         setContentView(R.layout.activity_splash);
+
+//        accessIM = (ImageView) findViewById(R.id.accessID);
+//        foodIM = (ImageView) findViewById(R.id.foodID);
+//        NYCim = (ImageView) findViewById(R.id.NYCID);
+
+        try{
+//            VideoView videoHolder = new VideoView(this);
+//            setContentView(videoHolder);
+//            Uri video = Uri.parse("android.resource://" + getPackageName() + "/"
+//                    + R.raw.accessfood2);
+//            videoHolder.setVideoURI(video);
+
+            VideoView videoHolder = (VideoView) findViewById(R.id.truckvideo);
+//            MediaController mediaController = new MediaController(this);
+//            mediaController.setAnchorView(videoHolder);
+            Uri video = Uri.parse("android.resource://" + getPackageName() + "/"
+                    + R.raw.accessfood_vendor);
+//            videoHolder.setMediaController(mediaController);
+//            videoHolder.setMediaController(new MediaController(this));
+            videoHolder.setVideoURI(video);
+            videoHolder.requestFocus();
+            videoHolder.start();
+
+            videoHolder.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                public void onCompletion(MediaPlayer mp) {
+                    jump();
+                }
+
+            });
+            videoHolder.start();
+        } catch(Exception ex) {
+            jump();
+        }
+
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -57,7 +101,7 @@ public class SplashActivity extends AppCompatActivity {
                     // close this activity
                     finish();
                 }
-            }, 2000);
+            }, 6000);
         }
 
 
@@ -113,6 +157,16 @@ public class SplashActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
+    }
+
+
+    private void jump() {
+    //it is safe to use this code even if you
+    //do not intend to allow users to skip the splash
+        if(isFinishing())
+            return;
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 }
