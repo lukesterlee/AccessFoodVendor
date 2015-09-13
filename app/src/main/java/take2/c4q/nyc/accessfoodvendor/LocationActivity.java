@@ -56,7 +56,7 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
     private TextView crossStOne;
     private TextView crossStTwo;
 
-    String objectId;
+    String truckId;
 
     double lat;
     double lng;
@@ -65,12 +65,12 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        objectId = intent.getStringExtra("objectId");
+        truckId = intent.getStringExtra("truckId");
 
         setContentView(R.layout.activity_location);
 
         crossStOne = (TextView)findViewById(R.id.crossst_a);
-        crossStTwo = (TextView)findViewById(R.id.crossst_b);
+//        crossStTwo = (TextView)findViewById(R.id.crossst_b);
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -82,14 +82,46 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
         createLocationRequest();
         mGoogleApiClient.connect();
 
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
+        query.getInBackground(truckId, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject currentVendor, ParseException e) {
+                if (e == null) {
+                    String registeredAddress = currentVendor.getString("address");
+
+//                    if(registeredAddress.equals("")) {
+//                        return;
+//                    }else{
+//
+//                        String[] parts = registeredAddress.split(" & ");
+//                        String address1 = parts[0];
+//                        String address2 = parts[1];
+//
+//                        crossStOne.setText(address1);
+//                        crossStTwo.setText(address2);
+//                    }
+                    if (registeredAddress != null && !registeredAddress.equals(""))
+                        crossStOne.setText(registeredAddress);
+
+
+
+
+
+                }
+            }
+        });
+
+
+
+
         Button mapSaveButton = (Button) findViewById(R.id.map_save_button);
         mapSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addressString = (String.valueOf(crossStOne.getText()) + " & "+ (String.valueOf(crossStTwo.getText())));
-
+//                addressString = (String.valueOf(crossStOne.getText()) + " & "+ (String.valueOf(crossStTwo.getText())));
+                addressString = String.valueOf(crossStOne.getText());
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
-                query.getInBackground(objectId, new GetCallback<ParseObject>() {
+                query.getInBackground(truckId, new GetCallback<ParseObject>() {
                     @Override
                     public void done(ParseObject currentVendor, ParseException e) {
                         if (e == null) {
@@ -98,15 +130,11 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
                             currentVendor.put("location", point);
                             currentVendor.saveInBackground();
 
+                            Toast.makeText(LocationActivity.this, "Location is saved!", Toast.LENGTH_SHORT).show();
 
                         }
                     }
                 });
-
-                Intent intent = new Intent(LocationActivity.this, PicturesActivity.class);
-                intent.putExtra("objectId", objectId);
-                startActivity(intent);
-
 
             }
         });
@@ -118,144 +146,171 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LocationActivity.this, PicturesActivity.class);
-                intent.putExtra("objectId", objectId);
+                intent.putExtra("truckId", truckId);
                 startActivity(intent);
-            }
+                }
         });
-
     }
 
-    @Override
-    public void onMapReady(final GoogleMap googleMap) {
-        googleMap.setMyLocationEnabled(true);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.setOnCameraChangeListener(this);
-
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
 
 
-        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        @Override
+        public void onMapReady(final GoogleMap googleMap) {
+            googleMap.setMyLocationEnabled(true);
+            googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            googleMap.setOnCameraChangeListener(this);
 
-            @Override
-            public void onMapClick(LatLng point) {
-                googleMap.clear();
-//                MarkerOptions marker = new MarkerOptions().position(
-//                        new LatLng(point.latitude, point.longitude)).title("New Marker");
-
-
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(point));
-                googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
 
 
-                googleMap.addMarker(new MarkerOptions().position(point).title("Your Location")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluelogo_s)).draggable(true));
+            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+                @Override
+                public void onMapClick(LatLng point) {
+                    googleMap.clear();
+    //                MarkerOptions marker = new MarkerOptions().position(
+    //                        new LatLng(point.latitude, point.longitude)).title("New Marker");
 
 
-                lat = point.latitude;
-                lng = point.longitude;
-                Toast.makeText(LocationActivity.this,
-                        String.valueOf(point),
-                        Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-
-            @Override
-            public void onMarkerDrag(Marker arg0) {
-            }
-
-            @Override
-            public void onMarkerDragEnd(Marker marker) {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-                googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-                LatLng latlng = marker.getPosition();
-
-                lat = latlng.latitude;
-                lng = latlng.longitude;
-                Toast.makeText(LocationActivity.this,
-                        String.valueOf(latlng),
-                        Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onMarkerDragStart(Marker marker) {
-            }
-        });
-
-    }
-
-    protected void createLocationRequest() {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(15000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-    }
-
-    @Override
-    public void onConnected(Bundle bundle) {
-        Log.i("MapsActivity", "Connected to Map!!!!!!!!");
-        LatLng defaultLatLng = new LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(defaultLatLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-        mMap.addMarker(new MarkerOptions().position(defaultLatLng)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluelogo_s)).draggable(true));
-
-        if (mRequestingLocationUpdates) {
-            startLocationUpdates();
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(point));
+                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
 
+                    googleMap.addMarker(new MarkerOptions().position(point).title("Your Location")
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluelogo_s)).draggable(true));
 
+
+                    lat = point.latitude;
+                    lng = point.longitude;
+                    Toast.makeText(LocationActivity.this,
+                            String.valueOf(point),
+                            Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+            googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+
+                @Override
+                public void onMarkerDrag(Marker arg0) {
+                }
+
+                @Override
+                public void onMarkerDragEnd(Marker marker) {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+                    LatLng latlng = marker.getPosition();
+
+                    lat = latlng.latitude;
+                    lng = latlng.longitude;
+                    Toast.makeText(LocationActivity.this,
+                            String.valueOf(latlng),
+                            Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onMarkerDragStart(Marker marker) {
+                }
+            });
 
         }
 
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-    }
+        protected void createLocationRequest() {
+            mLocationRequest = new LocationRequest();
+            mLocationRequest.setInterval(10000);
+            mLocationRequest.setFastestInterval(15000);
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        }
 
-    protected void startLocationUpdates() {
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                mCurrentLocation = location;
-                mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+        LatLng defaultLatLng;
+        @Override
+        public void onConnected(Bundle bundle) {
+            Log.i("MapsActivity", "Connected to Map!!!!!!!!");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
+            query.getInBackground(truckId, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject currentVendor, ParseException e) {
+                            if (e == null) {
+
+                                ParseGeoPoint userLocation = currentVendor.getParseGeoPoint("location");
+
+
+                                if(userLocation!=null){
+                                    LatLng regLatLng = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
+
+                                    mMap.addMarker(new MarkerOptions().position(regLatLng)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluelogo_s)).draggable(true));
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(regLatLng, 15));
+                                }
+                                else{
+                                    defaultLatLng = new LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLng(defaultLatLng));
+                                    mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+                                    mMap.addMarker(new MarkerOptions().position(defaultLatLng)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bluelogo_s)).draggable(true));
+                                }
+                            }
+                        }
+                    });
+
+
+
+
+
+
+
+            if (mRequestingLocationUpdates) {
+                startLocationUpdates();
+
             }
-        };
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, locationListener);
+
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+//
+        }
+
+
+        protected void startLocationUpdates() {
+            LocationListener locationListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    mCurrentLocation = location;
+                    mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+                }
+            };
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, locationListener);
+        }
+
+
+        @Override
+        public void onConnectionSuspended(int i) {
+            mGoogleApiClient.connect();
+        }
+
+        @Override
+        public void onCameraChange(CameraPosition cameraPosition) {
+
+        }
+
+        @Override
+        public void onConnectionFailed(ConnectionResult connectionResult) {
+
+        }
+
+        @Override
+        protected void onStop() {
+            mGoogleApiClient.disconnect();
+            super.onStop();
+            Log.i("MapsActivity", "it stops!!!!!!!");
+        }
+
+        protected synchronized void buildGoogleApiClient() {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+
     }
-
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onCameraChange(CameraPosition cameraPosition) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-    }
-
-    @Override
-    protected void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
-        Log.i("MapsActivity", "it stops!!!!!!!");
-    }
-
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-    }
-
-}

@@ -16,8 +16,9 @@ public class PicturesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictures);
 
-        Intent intent = getIntent();
-        objectId = intent.getStringExtra("objectId");
+//        Intent intent = getIntent();
+//        objectId = intent.getStringExtra("objectId");
+
 
         Button addpicBtn = (Button)findViewById(R.id.add_pics);
         addpicBtn.setOnClickListener(new View.OnClickListener() {
@@ -26,7 +27,7 @@ public class PicturesActivity extends AppCompatActivity {
                 PicDialog picDialog = new PicDialog();
 
                 Bundle bundle = new Bundle();
-                bundle.putString(Constant.EXTRA_KEY_OBJECT_ID, objectId);
+                bundle.putString(Constant.EXTRA_KEY_OBJECT_ID, "zJcr9wWyea");
 
 
                 picDialog.show(getSupportFragmentManager(), "picD");
@@ -56,11 +57,11 @@ public class PicturesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void toR (View v){
-        Intent intent = new Intent(PicturesActivity.this, RegisterActivity.class);
+        Intent intent = new Intent(PicturesActivity.this, MainActivity.class);
         startActivity(intent);
     }
     public void toMenu (View v){
-        Intent intent = new Intent(PicturesActivity.this, MenuActivity.class);
+        Intent intent = new Intent(PicturesActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

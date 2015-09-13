@@ -40,7 +40,7 @@
             android:inputType="text"
             android:textColor="#ffffff"
             android:textColorHint="#ffffff"
-            android:textIsSelectable="true" />
+             />
 
     </android.support.design.widget.TextInputLayout>
 

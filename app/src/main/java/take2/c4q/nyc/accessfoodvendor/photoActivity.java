@@ -36,7 +36,7 @@ import java.util.Locale;
 /**
  * Created by Hoshiko on 9/8/15.
  */
-public class photoActivity extends AppCompatActivity {
+public class PhotoActivity extends AppCompatActivity {
     private Uri imageUri;
     private ImageView imageView;
     private Bitmap bitmap;

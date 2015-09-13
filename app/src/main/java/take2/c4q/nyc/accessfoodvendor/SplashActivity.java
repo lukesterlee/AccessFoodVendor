@@ -6,17 +6,18 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class SplashActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
-
+    String truckId = null;
+    String userId = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +28,17 @@ public class SplashActivity extends AppCompatActivity {
 
 
         if (isUserLoggedIn()) {
-            goToRegisterActivity();
+            ParseUser user = ParseUser.getCurrentUser();
+            ParseObject truck = user.getParseObject("truck");
+
+            if(truck==null){
+                goToRegisterActivity();
+            }else{
+                user.getParseObject("truck");
+                truckId = truck.getObjectId();
+                goToMainActivity(truckId);
+            }
+
         } else {
             new Handler().postDelayed(new Runnable() {
 
@@ -87,13 +98,16 @@ public class SplashActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void goToMainActivity() {
+    private void goToMainActivity(String userId) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("truck", truckId);
+
         startActivity(intent);
         finish();
     }
+
     private void goToRegisterActivity() {
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

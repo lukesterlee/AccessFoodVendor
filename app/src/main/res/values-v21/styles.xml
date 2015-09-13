@@ -32,13 +32,15 @@
         <item name="colorAccent">@color/primaryColor</item>
     </style>
 
-    <!--<style name="Theme.Dialog" parent="Theme.AppCompat.Light.Dialog">-->
-        <!--<item name="colorPrimary">@color/primaryColor</item>-->
-        <!--<item name="colorPrimaryDark">@color/primaryColorDark</item>-->
-        <!--<item name="android:textColor">@color/primaryColorDark</item>-->
-        <!--<item name="color">@color/primaryColorDark</item>-->
-        <!--<item name="android:textColorHint">@color/white</item>-->
-        <!--<item name="android:windowBackground">@color/white</item>-->
-    <!--</style>-->
+
+    <style name="CustomCheckBox">
+        <item name="android:theme">@style/CheckBoxAppTheme</item>
+    </style>
+
+    <style name="CheckBoxAppTheme">
+        <item name="android:colorAccent">@color/primaryColor</item>
+        <item name="android:colorControlNormal">@color/white</item>
+        <item name="android:colorControlHighlight">@color/primaryColor</item>
+    </style>
 
 </resources>
