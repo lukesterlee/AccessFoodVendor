@@ -86,6 +86,13 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".PhotoActivity"
+            android:label="Additional Information"
+            android:theme="@style/AppTheme.Base"
+            android:screenOrientation="portrait">
+        </activity>
+
 
         <meta-data
             android:name="com.parse.APPLICATION_ID"

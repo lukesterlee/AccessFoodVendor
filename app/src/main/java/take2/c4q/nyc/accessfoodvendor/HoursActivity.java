@@ -19,6 +19,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,6 +62,7 @@ public class HoursActivity extends FragmentActivity {
 
         Intent intent = getIntent();
         truckId= intent.getStringExtra("truckId");
+
 
         monOpen = (EditText) findViewById(R.id.mon_open);
         monOpen.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +239,7 @@ public class HoursActivity extends FragmentActivity {
                             if(rbMon.isChecked()){
                                 currentVendor.put("day1", "Closed");
                             }else if (monOpen.getText().equals("") || monClose.getText().equals("")) {
-                                currentVendor.put("day1", null);
+                                currentVendor.put("day1", "");
                             } else {
                                 currentVendor.put("day1",
                                         toJasonString((String.valueOf(monOpen.getText())),
@@ -249,7 +251,7 @@ public class HoursActivity extends FragmentActivity {
                                 currentVendor.put("day2", "Closed");
 
                             }else if (tueOpen.getText().equals("") || tueClose.getText().equals("")) {
-                                currentVendor.put("day2", null);
+                                currentVendor.put("day2", "");
                             } else {
                                 currentVendor.put("day2",
                                         toJasonString((String.valueOf(tueOpen.getText())),
@@ -260,7 +262,7 @@ public class HoursActivity extends FragmentActivity {
                                 currentVendor.put("day3", "Closed");
 
                             }else if (wedOpen.getText().equals("") || wedClose.getText().equals("")) {
-                                currentVendor.put("day3", null);
+                                currentVendor.put("day3", "");
                             } else {
                                 currentVendor.put("day3",
                                         toJasonString((String.valueOf(wedOpen.getText())),
@@ -272,7 +274,7 @@ public class HoursActivity extends FragmentActivity {
                                 currentVendor.put("day4", "Closed");
 
                             }else if (thuOpen.getText().equals("") || thuClose.getText().equals("")) {
-                                currentVendor.put("day4", null);
+                                currentVendor.put("day4", "");
                             } else {
                                 currentVendor.put("day4",
                                         toJasonString((String.valueOf(thuOpen.getText())),
@@ -284,7 +286,7 @@ public class HoursActivity extends FragmentActivity {
                                 currentVendor.put("day5", "Closed");
 
                             }else if (friOpen.getText().equals("") || friClose.getText().equals("")) {
-                                currentVendor.put("day5", null);
+                                currentVendor.put("day5", "");
                             } else {
                                 currentVendor.put("day5",
                                         toJasonString((String.valueOf(friOpen.getText())),
@@ -296,7 +298,7 @@ public class HoursActivity extends FragmentActivity {
                                 currentVendor.put("day6", "Closed");
 
                             }else if (satOpen.getText().equals("") || satClose.getText().equals("")) {
-                                currentVendor.put("day6", null);
+                                currentVendor.put("day6", "");
                             } else {
                                 currentVendor.put("day6",
                                         toJasonString((String.valueOf(satOpen.getText())),
@@ -309,7 +311,7 @@ public class HoursActivity extends FragmentActivity {
                                 currentVendor.put("day7", "Closed");
 
                             }if (sunOpen.getText().equals("") || sunClose.getText().equals("")) {
-                                currentVendor.put("day7", null);
+                                currentVendor.put("day7", "");
                             } else {
                                 currentVendor.put("day7",
                                         toJasonString((String.valueOf(sunOpen.getText())),
@@ -333,7 +335,7 @@ public class HoursActivity extends FragmentActivity {
         skipToLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HoursActivity.this, LocationActivity.class);
+                Intent intent = new Intent(HoursActivity.this, MainActivity.class);
                 intent.putExtra("truckId", truckId);
                 startActivity(intent);
             }
@@ -376,21 +378,25 @@ public class HoursActivity extends FragmentActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
 
 
-//            String timeStrTx = String.valueOf(editText.getText());
-//            String timeStr = timeStrTx.replace(";","");
-//
-//            if (timeStr == null || timeStr.length() < 4){
+            String timeStrTx = String.valueOf(editText.getText());
+            if(!timeStrTx.equals("")&& timeStrTx != null){
+                String timeStr = timeStrTx.replace(":","");
 
+                if (timeStr.length() == 4) {
+
+                    String hours = timeStr.substring(0, 2);
+                    String mins = timeStr.substring(2, 4);
+                    hour = Integer.parseInt(hours);
+                    minute = Integer.parseInt(mins);
+
+
+                }
+
+            }else{
                 hour = 12;
                 minute = 00;
-//            }else{
-//
-//                String hours = timeStr.substring(0, 2);
-//                String mins = timeStr.substring(2, 4);
-//                hour = Integer.parseInt(hours);
-//                minute = Integer.parseInt(mins);
-//
-//            }
+            }
+
 
              return new TimePickerDialog(
                     getActivity(), this, hour, minute,

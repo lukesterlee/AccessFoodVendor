@@ -1,22 +1,20 @@
 package take2.c4q.nyc.accessfoodvendor;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.login.LoginManager;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.parse.SendCallback;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        Intent intent = getIntent();
+//        truckId= intent.getStringExtra("truck");
+
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseObject truck = user.getParseObject("truck");
+        truckId = truck.getObjectId();
 
         mTitle = (TextView) findViewById(R.id.title);
 
@@ -67,51 +71,73 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ParseUser user = ParseUser.getCurrentUser();
+//        ParseUser user = ParseUser.getCurrentUser();
+
         mTruck = user.getParseObject("truck");
-        mTruck.fetchInBackground(new GetCallback<ParseObject>() {
+        mTruck.fetchIfNeededInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject truck, ParseException e) {
                 mTruck = truck;
                 mTitle.setText(truck.getString("name"));
             }
         });
+//        mTruck.fetchInBackground(new GetCallback<ParseObject>() {
+//            @Override
+//            public void done(ParseObject truck, ParseException e) {
+//
+//            }
+//        });
 
 
-        Intent intent = getIntent();
-        truckId= intent.getStringExtra("truck");
+
+
+        Button addPicBtn = (Button)findViewById(R.id.pic_button);
+        addPicBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PicDialog picDialog = new PicDialog();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("truckId", truckId);
+                picDialog.setArguments(bundle);
+                picDialog.show(getSupportFragmentManager(), "picD");
+            }
+        });
+
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//
+//        switch (item.getItemId()) {
+//            case R.id.action_logout:
+//                logOut();
+//                break;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     public void toUpdateLocation (View v){
         Intent intent = new Intent(MainActivity.this, LocationActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("truckId", truckId);
         startActivity(intent);
-        finish();
+//        finish();
     }
     public void toUpdateHours (View v){
         Intent intent = new Intent(MainActivity.this, HoursActivity.class);
@@ -122,15 +148,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void goToRegisterActivity() {
-        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+//    private void toPic(View v) {
+//        Intent intent = new Intent(getApplicationContext(), PicturesActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        intent.putExtra("truckId", truckId);
+//        startActivity(intent);
+//
+//    }
 
-    }
+    private void logOut() {
 
-    public void logOut() {
         ParseUser.logOut();
         Toast.makeText(getApplicationContext(), "Successfully logged out!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
