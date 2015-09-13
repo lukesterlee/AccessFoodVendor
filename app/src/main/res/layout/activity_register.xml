@@ -4,24 +4,31 @@
     android:layout_height="match_parent"
     tools:context="take2.c4q.nyc.accessfoodvendor.RegisterActivity"
     android:orientation="vertical"
-    android:background="#03a9f4">
+    android:background="#03a9f4"
+    android:padding="10dp">
 
-    <TextView android:text="Register Truck"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textColor="@color/white"
-        android:gravity="center"/>
+        android:layout_margin="10dp">
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="93dp"
-        android:id="@+id/icon"
-        android:src="@drawable/whitelogo"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal" />
+        <ImageView
+            android:layout_width="118dp"
+            android:layout_height="60dp"
+            android:id="@+id/icon"
+            android:src="@drawable/whitelogo"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_marginTop="25dp"
+            android:layout_width="179dp"
+            android:layout_height="wrap_content"
+            android:text="Registration"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_marginTop="20dp"
@@ -34,9 +41,10 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
         android:ems="10"
-        android:hint="Truck Name"
+        android:hint="Truck Name*"
         android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"
+        android:inputType="textCapSentences|textAutoCorrect" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -50,7 +58,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:ems="10"
-            android:hint="phone number"
+            android:hint="Phone Number*"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:inputType="phone"/>
@@ -69,7 +77,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:ems="10"
-            android:hint="email address"
+            android:hint="Email Address*"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:inputType="textWebEmailAddress"/>
@@ -98,52 +106,17 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/descriptionID"
+            android:id="@+id/websiteId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:ems="10"
-            android:hint="description"
+            android:hint="Website"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:inputType="text"/>
+            android:inputType="textUri" />
 
     </android.support.design.widget.TextInputLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:src="@drawable/empty"
-            android:layout_weight="1" />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:src="@drawable/empty"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:src="@drawable/empty"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:src="@drawable/empty"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:src="@drawable/empty"
-            android:layout_weight="1"/>
-
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -156,7 +129,8 @@
             android:layout_weight="1"
             android:text="next"
             android:onClick="toPic"
-            android:background="#ffffff" />
+            android:background="#ffffff"
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
 

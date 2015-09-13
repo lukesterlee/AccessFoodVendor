@@ -18,12 +18,12 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText truckName;
     private EditText phoneNumber;
     private EditText email;
-    private EditText description;
+    private EditText website;
     private EditText twtterHandle;
     String truckNameString;
     String phoneNumberString;
     String emailString;
-    String descriptionString;
+    String websiteString;
     String twitterString;
 
 
@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
         truckName = (EditText) findViewById(R.id.truckNameID);
         phoneNumber = (EditText) findViewById(R.id.phoneNumberID);
         email = (EditText) findViewById(R.id.emailFieldID);
-        description = (EditText) findViewById(R.id.descriptionID);
+        website = (EditText) findViewById(R.id.websiteId);
         twtterHandle = (EditText) findViewById(R.id.twitterID);
 
 
@@ -68,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
         phoneNumberString = phoneNumber.getText().toString();
         emailString = email.getText().toString();
         twitterString = twtterHandle.getText().toString();
-        descriptionString = description.getText().toString() + " ";
+        websiteString = website.getText().toString() + " ";
 
 
         if (!truckNameString.equals("") && (!phoneNumberString.equals("") && (!emailString.equals("")))){
@@ -78,19 +78,22 @@ public class RegisterActivity extends AppCompatActivity {
             newVendor.put("phone", phoneNumberString);
             newVendor.put("email", emailString);
             newVendor.put("twitter", twitterString);
-            newVendor.put("description", descriptionString);
+            newVendor.put("website", websiteString);
 
             newVendor.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
-                    ParseUser user = ParseUser.getCurrentUser();
-                    user.put("truck", newVendor);
-                    user.saveInBackground();
 
-                    String objectId = newVendor.getObjectId();
-                    Intent intent = new Intent(RegisterActivity.this, AdditionalInfoActivity.class);
-                    intent.putExtra("objectId", objectId);
-                    startActivity(intent);
+                    if (e==null) {
+                        ParseUser user = ParseUser.getCurrentUser();
+                        user.put("truck", newVendor);
+                        user.saveInBackground();
+
+                        String objectId = newVendor.getObjectId();
+                        Intent intent = new Intent(RegisterActivity.this, HoursActivity.class);
+                        intent.putExtra("objectId", objectId);
+                        startActivity(intent);
+                    }
                 }
             });
 

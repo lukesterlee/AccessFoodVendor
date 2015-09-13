@@ -8,11 +8,15 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
-
+    String truckId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        truckId= intent.getStringExtra("truck");
+
     }
 
     @Override
@@ -36,8 +40,29 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void toRegister (View v){
-        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+
+
+    public void toUpdateLocation (View v){
+        Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
+    }
+    public void toUpdateHours (View v){
+        Intent intent = new Intent(MainActivity.this, HoursActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("truckId", truckId);
+        startActivity(intent);
+
+    }
+
+    private void goToRegisterActivity() {
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
     }
 }
