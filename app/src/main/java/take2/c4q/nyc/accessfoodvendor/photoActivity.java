@@ -20,8 +20,6 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.ProgressCallback;
 import com.parse.SaveCallback;
@@ -40,7 +38,7 @@ public class PhotoActivity extends AppCompatActivity {
     private Uri imageUri;
     private ImageView imageView;
     private Bitmap bitmap;
-    private String objectId;
+    private String truckId;
 
 
 
@@ -56,7 +54,7 @@ public class PhotoActivity extends AppCompatActivity {
         //progressBar.setVisibility(View.GONE);
 
         Intent intent = getIntent();
-        objectId = intent.getStringExtra(Constant.EXTRA_KEY_OBJECT_ID);
+        truckId = intent.getStringExtra(Constant.EXTRA_KEY_OBJECT_ID);
 
         int flag = getIntent().getIntExtra(Constant.EXTRA_PICTIRE, -1);
 
@@ -153,16 +151,17 @@ public class PhotoActivity extends AppCompatActivity {
 
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            Bitmap bitmap = BitmapFactory.decodeFile(imagePath, options);
+            bitmap = BitmapFactory.decodeFile(imagePath, options);
             imageView.setImageBitmap(bitmap);
 
             cursor.close();
         }
     }
     public void save (View v){
+
         progressBar.setVisibility(View.VISIBLE);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
         byte[] byteArray = stream.toByteArray();
 
         final ParseFile file = new ParseFile("picture.jpg", byteArray);
@@ -173,36 +172,50 @@ public class PhotoActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 final ParseObject picture = new ParseObject("Picture");
                 picture.put("data", file);
+
                 picture.put("uploader", ParseUser.getCurrentUser());
+
+
+                ParseUser user = ParseUser.getCurrentUser();
+                ParseObject truck = user.getParseObject("truck");
+                truck.fetchInBackground(new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject truck, ParseException e) {
+                        picture.put("vendor", truck);
+                        picture.saveInBackground();
+                    }
+                });
+
                 //picture.saveInBackground();
 
 
 
                 Toast.makeText(getApplicationContext(), "uploaded", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
 
 
 
 
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
-                    query.getInBackground(objectId, new GetCallback<ParseObject>() {
-                        @Override
-                        public void done(final ParseObject vendor, ParseException e) {
-                            picture.put("vendor", vendor);
-                            picture.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    ParseRelation<ParseObject> pictures = vendor.getRelation("pictures");
-                                    pictures.add(picture);
-                                    vendor.saveInBackground();
-                                }
-                            });
-                            //progressBar.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "uploaded2", Toast.LENGTH_SHORT).show();
-
-                        }
-
-
-                    });
+//                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
+//                    query.getInBackground(truckId, new GetCallback<ParseObject>() {
+//                        @Override
+//                        public void done(final ParseObject vendor, ParseException e) {
+//
+//                            picture.saveInBackground(new SaveCallback() {
+//                                @Override
+//                                public void done(ParseException e) {
+//                                    ParseRelation<ParseObject> pictures = vendor.getRelation("pictures");
+//                                    pictures.add(picture);
+//                                    vendor.saveInBackground();
+//                                }
+//                            });
+//                            //progressBar.setVisibility(View.GONE);
+//                            Toast.makeText(getApplicationContext(), "uploaded2", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//
+//
+//                    });
 
 
             }

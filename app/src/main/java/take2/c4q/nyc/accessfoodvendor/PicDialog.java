@@ -12,14 +12,14 @@ import android.support.v7.app.AlertDialog;
  */
 public class PicDialog extends DialogFragment {
 
-    private String objectId;
+    private String truckId;
 
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        objectId = getArguments().getString(Constant.EXTRA_KEY_OBJECT_ID);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.Base_Theme_AppCompat_Light_Dialog);
+        truckId = getArguments().getString("truckId");
 //        isYelp = getArguments().getBoolean(Constants.EXTRA_KEY_IS_YELP);
 
 
@@ -30,7 +30,7 @@ public class PicDialog extends DialogFragment {
                         // of the selected item
                         Intent intent = new Intent(getActivity(), PhotoActivity.class);
                         intent.putExtra(Constant.EXTRA_PICTIRE, Constant.FLAG_CAMERA);
-                        intent.putExtra(Constant.EXTRA_KEY_OBJECT_ID, objectId);
+                        intent.putExtra("truckId", truckId);
 //                        intent.putExtra(Constants.EXTRA_KEY_IS_YELP, isYelp);
                         startActivity(intent);
                     }
@@ -40,7 +40,7 @@ public class PicDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(getActivity(), PhotoActivity.class);
                 intent.putExtra(Constant.EXTRA_PICTIRE, Constant.FLAG_GALLERY);
-                intent.putExtra(Constant.EXTRA_KEY_OBJECT_ID, objectId);
+                intent.putExtra("truckId", truckId);
 //                        intent.putExtra(Constants.EXTRA_KEY_IS_YELP, isYelp);
                 startActivity(intent);
             }

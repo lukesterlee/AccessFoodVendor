@@ -9,15 +9,15 @@ import android.view.View;
 import android.widget.Button;
 
 public class PicturesActivity extends AppCompatActivity {
-    private String objectId;
+    private String truckId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictures);
 
-//        Intent intent = getIntent();
-//        objectId = intent.getStringExtra("objectId");
+        Intent intent = getIntent();
+        truckId = intent.getStringExtra("truckId");
 
 
         Button addpicBtn = (Button)findViewById(R.id.add_pics);
@@ -28,7 +28,6 @@ public class PicturesActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putString(Constant.EXTRA_KEY_OBJECT_ID, "zJcr9wWyea");
-
 
                 picDialog.show(getSupportFragmentManager(), "picD");
             }

@@ -182,9 +182,9 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
 
                     lat = point.latitude;
                     lng = point.longitude;
-                    Toast.makeText(LocationActivity.this,
-                            String.valueOf(point),
-                            Toast.LENGTH_LONG).show();
+//                    Toast.makeText(LocationActivity.this,
+//                            String.valueOf(point),
+//                            Toast.LENGTH_LONG).show();
 
                 }
             });
@@ -204,9 +204,9 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
 
                     lat = latlng.latitude;
                     lng = latlng.longitude;
-                    Toast.makeText(LocationActivity.this,
-                            String.valueOf(latlng),
-                            Toast.LENGTH_LONG).show();
+//                    Toast.makeText(LocationActivity.this,
+//                            String.valueOf(latlng),
+//                            Toast.LENGTH_LONG).show();
                 }
 
                 @Override
@@ -235,7 +235,7 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
 
                                 ParseGeoPoint userLocation = currentVendor.getParseGeoPoint("location");
 
-
+//
                                 if(userLocation!=null){
                                     LatLng regLatLng = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
 
