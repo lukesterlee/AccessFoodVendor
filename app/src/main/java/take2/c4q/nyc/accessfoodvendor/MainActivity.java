@@ -6,13 +6,77 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.facebook.login.LoginManager;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParsePush;
+import com.parse.ParseUser;
+import com.parse.SendCallback;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Button mButtonLogOut;
+    private Button mButtonProfile;
+    private Button mButtonPush;
+    private TextView mTitle;
+
+    private ParseObject mTruck;
+
     String truckId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mTitle = (TextView) findViewById(R.id.title);
+
+        mButtonProfile = (Button) findViewById(R.id.button_profile);
+        mButtonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        mButtonLogOut = (Button) findViewById(R.id.log_out);
+        mButtonLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOut();
+            }
+        });
+
+        mButtonPush = (Button) findViewById(R.id.push);
+        mButtonPush.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParsePush push = new ParsePush();
+                push.setChannel(mTruck.getObjectId());
+                push.setMessage("This is Test! 10% off today!!!");
+                push.sendInBackground(new SendCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Toast.makeText(getApplicationContext(), "Sent!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        ParseUser user = ParseUser.getCurrentUser();
+        mTruck = user.getParseObject("truck");
+        mTruck.fetchInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject truck, ParseException e) {
+                mTruck = truck;
+                mTitle.setText(truck.getString("name"));
+            }
+        });
+
 
         Intent intent = getIntent();
         truckId= intent.getStringExtra("truck");
@@ -64,5 +128,14 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 
+    }
+
+    public void logOut() {
+        ParseUser.logOut();
+        Toast.makeText(getApplicationContext(), "Successfully logged out!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

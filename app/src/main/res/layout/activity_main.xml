@@ -21,6 +21,7 @@
             android:layout_marginTop="10dp" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_marginTop="25dp"
             android:layout_width="179dp"
             android:layout_height="wrap_content"
@@ -58,6 +59,7 @@
         <!--android:paddingLeft="5dp" />-->
 
     <Button
+        android:id="@+id/button_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="About Your Trucks"
@@ -66,4 +68,22 @@
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/blue_truck"
         android:paddingLeft="8dp" />
+
+    <Button
+        android:id="@+id/push"
+        android:text="Push / Coupon"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/log_out"
+        android:text="Log Out"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
 </LinearLayout>
