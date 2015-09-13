@@ -79,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
             newVendor.put("email", emailString);
             newVendor.put("twitter", twitterString);
             newVendor.put("website", websiteString);
+            newVendor.put("rating", 3.5);
 
             newVendor.saveInBackground(new SaveCallback() {
                 @Override

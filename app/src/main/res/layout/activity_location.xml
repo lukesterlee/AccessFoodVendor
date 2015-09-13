@@ -173,7 +173,7 @@
                 android:layout_width="161dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primaryColor"
-                android:text="Finish"
+                android:text="Main Page"
                 android:background="#ffffff" />
         </LinearLayout>
 

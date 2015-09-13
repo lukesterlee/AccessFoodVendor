@@ -145,7 +145,7 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
         mapNextutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LocationActivity.this, PicturesActivity.class);
+                Intent intent = new Intent(LocationActivity.this, MainActivity.class);
                 intent.putExtra("truckId", truckId);
                 startActivity(intent);
                 }

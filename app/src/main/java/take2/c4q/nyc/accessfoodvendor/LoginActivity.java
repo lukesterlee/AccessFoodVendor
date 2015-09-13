@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (e == null) {
                                 // Success!
-                                goToMainActivity();
+                                goToRegisterActivity();
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 builder.setMessage(e.getMessage())
