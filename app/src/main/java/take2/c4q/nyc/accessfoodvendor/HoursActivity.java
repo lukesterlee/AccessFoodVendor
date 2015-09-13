@@ -366,41 +366,31 @@ public class HoursActivity extends FragmentActivity {
             TimePickerDialog.OnTimeSetListener {
 
         EditText editText;
-
+        int hour;
+        int minute;
         public TimePickerFragment(EditText editText) {
             this.editText = editText;
         }
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
-//            final Calendar c = Calendar.getInstance();
-//            int hour = c.get(Calendar.HOUR_OF_DAY);
-//            int minute = c.get(Calendar.MINUTE);
 
-            int hour;
-            int minute;
-            String timeStr = String.valueOf(editText.getText());
 
-            if(timeStr==null && !timeStr.equals("")){
-                String[] parts = timeStr.split(":");
-                String hourstr = parts[0];
-                String minstr = parts[1];
-
-                hour = Integer.parseInt(hourstr);
-                minute = Integer.parseInt(minstr);
-
-            } else {
+//            String timeStrTx = String.valueOf(editText.getText());
+//            String timeStr = timeStrTx.replace(";","");
+//
+//            if (timeStr == null || timeStr.length() < 4){
 
                 hour = 12;
                 minute = 00;
-
-            }
-
-//             Create a new instance of TimePickerDialog and return it
-//            return new TimePickerDialog(
-//                    new ContextThemeWrapper(getActivity(),R.style.Dialog), this, hour, minute,
-//                    DateFormat.is24HourFormat(getActivity()));
+//            }else{
+//
+//                String hours = timeStr.substring(0, 2);
+//                String mins = timeStr.substring(2, 4);
+//                hour = Integer.parseInt(hours);
+//                minute = Integer.parseInt(mins);
+//
+//            }
 
              return new TimePickerDialog(
                     getActivity(), this, hour, minute,
@@ -438,7 +428,7 @@ public class HoursActivity extends FragmentActivity {
                 }
                 else {
 
-                    hourStr = String.valueOf(minute);
+                    hourStr = String.valueOf(hourOfDay);
                 }
             }
 
