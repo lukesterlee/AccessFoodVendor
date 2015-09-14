@@ -51,7 +51,7 @@
             android:inputType="text"
             android:textColor="#ffffff"
             android:textColorHint="#ffffff"
-             />
+            android:typeface="monospace" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -68,7 +68,8 @@
             android:hint="@string/password_hint"
             android:inputType="textPassword"
             android:textColor="#ffffff"
-            android:textColorHint="#ffffff" />
+            android:textColorHint="#ffffff"
+            android:typeface="monospace" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -149,7 +150,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/primaryColor"
                 android:text="sign in with twitter"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                android:typeface="monospace" />
 
         </LinearLayout>
 
@@ -167,7 +169,8 @@
                 android:background="@color/accentColor"
                 android:onClick="showSignUpFields"
                 android:text="@string/sign_up_text"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:typeface="monospace" />
 
             <Button
                 android:id="@+id/loginButton"
@@ -177,7 +180,8 @@
                 android:layout_weight="1"
                 android:background="#4CAF50"
                 android:text="@string/login_button_label"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:typeface="monospace" />
         </LinearLayout>
 
     </LinearLayout>

@@ -61,7 +61,8 @@
             android:layout_marginRight="10dp"
             android:showDividers="none"
             android:background="#ffffff"
-            android:paddingBottom="2dp">
+            android:paddingBottom="2dp"
+            android:typeface="monospace">
 
 
             <TableRow
@@ -97,7 +98,8 @@
                     android:paddingBottom="5dp"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:typeface="monospace" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -111,7 +113,8 @@
                     android:paddingTop="7dp"
                     android:paddingBottom="5dp"
                     android:gravity="center"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:typeface="monospace" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -125,7 +128,8 @@
                     android:paddingTop="7dp"
                     android:paddingBottom="5dp"
                     android:gravity="center"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:typeface="monospace" />
 
 
 
@@ -153,7 +157,8 @@
                     android:layout_weight="1"
                     android:background="#ffffff"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
 
 
                 <EditText
@@ -224,7 +229,8 @@
                     android:textSize="16dp"
                     android:background="#ffffff"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
 
 
                 <EditText
@@ -297,7 +303,8 @@
                     android:textSize="16dp"
                     android:background="#ffffff"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
 
                 <EditText
                     android:id="@+id/wed_open"
@@ -368,7 +375,8 @@
                     android:textSize="16dp"
                     android:background="#ffffff"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
 
                 <EditText
                     android:id="@+id/thu_open"
@@ -440,7 +448,8 @@
                     android:textSize="16dp"
                     android:background="#ffffff"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
 
                 <EditText
                     android:id="@+id/fri_open"
@@ -511,7 +520,8 @@
                     android:textSize="16dp"
                     android:background="#ffffff"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
 
 
                 <EditText
@@ -584,7 +594,8 @@
                     android:textSize="16dp"
                     android:background="#ffffff"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
 
                 <EditText
                     android:id="@+id/sun_open"
@@ -652,7 +663,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/primaryColor"
             android:text="Main Page"
-            android:background="#ffffff" />
+            android:background="#ffffff"
+            android:typeface="monospace"/>
 
         <Button
             android:id="@+id/save_hours_btn"
@@ -662,7 +674,8 @@
             android:textColor="@color/primaryColor"
             android:text="Save"
             android:background="#FFEB3B"
-            android:layout_marginLeft="2dp" />
+            android:layout_marginLeft="2dp"
+            android:typeface="monospace"/>
 
     </LinearLayout>
 
