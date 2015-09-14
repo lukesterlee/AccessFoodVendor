@@ -82,7 +82,8 @@
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/blue_truck"
         android:paddingLeft="8dp"
-        android:typeface="monospace"/>
+        android:typeface="monospace"
+        />
 
     <Button
         android:id="@+id/push"
