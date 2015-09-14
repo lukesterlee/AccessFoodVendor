@@ -22,12 +22,14 @@ public class PicDialog extends DialogFragment {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.Base_Theme_AppCompat_Light_Dialog);
         truckId = getArguments().getString("truckId");
        return new AlertDialog.Builder(getActivity(),R.style.CustomTheme_Dialog)
+
                 // Set Dialog Icon
                 .setIcon(R.drawable.whitelogo)
                         // Set Dialog Title
                 .setTitle("Upload your picture")
                         // Set Dialog Message
-                .setMessage("Take a picture or pick one from your gallery?")
+                .setMessage("Take a picture or pick one from your gallery")
+
 
                         // Positive button
                 .setPositiveButton("   ", new DialogInterface.OnClickListener() {
@@ -61,7 +63,6 @@ public class PicDialog extends DialogFragment {
         pButton.setBackground(getResources().getDrawable(R.drawable.camera2));
         nButton.setBackground(getResources().getDrawable(R.drawable.gallery_icon2));
     }
-
 
 
 
