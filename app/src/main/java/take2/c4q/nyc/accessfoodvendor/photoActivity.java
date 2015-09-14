@@ -88,6 +88,18 @@ public class PhotoActivity extends AppCompatActivity {
                 picDialog.show(getSupportFragmentManager(), "picD");
             }
         });
+
+        Button backBtn = (Button)findViewById(R.id.back_button);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 //    @Override
@@ -198,36 +210,9 @@ public class PhotoActivity extends AppCompatActivity {
                     }
                 });
 
-                //picture.saveInBackground();
-
-
 
                 Toast.makeText(getApplicationContext(), "uploaded", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
-
-
-
-
-//                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
-//                    query.getInBackground(truckId, new GetCallback<ParseObject>() {
-//                        @Override
-//                        public void done(final ParseObject vendor, ParseException e) {
-//
-//                            picture.saveInBackground(new SaveCallback() {
-//                                @Override
-//                                public void done(ParseException e) {
-//                                    ParseRelation<ParseObject> pictures = vendor.getRelation("pictures");
-//                                    pictures.add(picture);
-//                                    vendor.saveInBackground();
-//                                }
-//                            });
-//                            //progressBar.setVisibility(View.GONE);
-//                            Toast.makeText(getApplicationContext(), "uploaded2", Toast.LENGTH_SHORT).show();
-//
-//                        }
-//
-//
-//                    });
 
 
             }
@@ -239,4 +224,7 @@ public class PhotoActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 }
