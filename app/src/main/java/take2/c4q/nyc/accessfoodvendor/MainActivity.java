@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("truckId", truckId);
                 picDialog.setArguments(bundle);
+
                 picDialog.show(getSupportFragmentManager(), "picD");
             }
         });
