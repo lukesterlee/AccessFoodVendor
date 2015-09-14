@@ -44,7 +44,8 @@
         android:hint="Truck Name*"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:inputType="textCapSentences|textAutoCorrect" />
+        android:inputType="textCapSentences|textAutoCorrect"
+        android:typeface="monospace" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -61,7 +62,8 @@
             android:hint="Phone Number*"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:typeface="monospace" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -80,7 +82,8 @@
             android:hint="Email Address*"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:inputType="textWebEmailAddress"/>
+            android:inputType="textWebEmailAddress"
+            android:typeface="monospace" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -97,7 +100,8 @@
             android:hint="twitter"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:typeface="monospace" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -114,7 +118,8 @@
             android:hint="Website"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:inputType="textUri" />
+            android:inputType="textUri"
+            android:typeface="monospace" />
 
     </android.support.design.widget.TextInputLayout>
 

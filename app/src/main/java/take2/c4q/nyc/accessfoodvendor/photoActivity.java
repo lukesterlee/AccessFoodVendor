@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -75,7 +76,18 @@ public class PhotoActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageID);
 
 
+        Button addPicBtn = (Button)findViewById(R.id.pic_button);
+        addPicBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PicDialog picDialog = new PicDialog();
 
+                Bundle bundle = new Bundle();
+                bundle.putString("truckId", truckId);
+                picDialog.setArguments(bundle);
+                picDialog.show(getSupportFragmentManager(), "picD");
+            }
+        });
     }
 
 //    @Override

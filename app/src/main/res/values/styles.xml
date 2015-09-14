@@ -26,8 +26,22 @@
     </style>
 
 
+    <style name="CustomTheme.Dialog" parent="android:Theme.Holo.Light.Dialog">
+        <!--<item name="android:buttonBarButtonStyle">@style/CustomTheme.Dialog.Button</item>-->
+        <!-- See caveat -->
+        <item name="android:windowBackground">@color/primaryColor</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryColorDark</item>
+    </style>
 
+    <!--<style name="CustomTheme.Dialog.Button" parent="@android:style/Widget.Holo.Light.Button.Borderless.Small">-->
+        <!--<item name="android:background">@drawable/ic_action_image_photo_camera</item>-->
 
+    <!--</style>-->
 
 
 
