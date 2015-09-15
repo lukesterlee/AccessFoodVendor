@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical">-->
+
+                <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                    <!--android:id="@+id/imageView_vendor"-->
+                    <!--android:layout_width="64dp"-->
+                    <!--android:layout_height="64dp" />-->
+
+
+            <!--</LinearLayout>-->
+
+
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:paddingLeft="8dp"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/vendor_name"-->
+                        <!--android:textSize="18dp"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:layout_centerVertical="true" />-->
+
+                    <!--<TextView-->
+                        <!--android:padding="6dp"-->
+                        <!--android:background="@drawable/rounded_corner"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:id="@+id/vendor_rating"-->
+
+                        <!--android:textSize="14dp"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_width="36dp"-->
+                        <!--android:layout_height="32dp"-->
+                        <!--android:gravity="center_vertical|center_horizontal" />-->
+
+
+                <!--</RelativeLayout>-->
+
+                <!--<TextView-->
+                    <!--android:textSize="16dp"-->
+                    <!--android:id="@+id/textView_address"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingBottom="4dp"-->
+                    <!--android:textColor="@color/black"/>-->
+
+
+
+                <!--<LinearLayout-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<TextView-->
+                        <!--android:paddingLeft="4dp"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:id="@+id/textView_hour"-->
+                        <!--android:visibility="gone"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:layout_gravity="center_vertical" />-->
+
+
+
+                <!--</LinearLayout>-->
+
+
+
+                <!--&lt;!&ndash;<View&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_marginTop="12dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="fill_parent"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="1dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:background="@color/dividerColor"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/vendor_rating"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textColor="@color/black"/>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:src="@drawable/favoriteborder"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_gravity="right"&ndash;&gt;-->
+                <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+            <!--</LinearLayout>-->
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:padding="4dp"
+                android:id="@+id/user_review_user_picture"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+
+            <TextView
+                android:id="@+id/user_review_how_many"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/user_review_writer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"/>
+
+
+            <TextView
+                android:gravity="right"
+                android:layout_gravity="center_vertical|right"
+                android:textColor="@color/black"
+                android:id="@+id/user_review_date"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:id="@+id/user_review_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:paddingTop="0dp"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:id="@+id/user_review_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividerColor"/>
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

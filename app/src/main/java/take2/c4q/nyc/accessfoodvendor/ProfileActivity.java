@@ -1,6 +1,5 @@
 package take2.c4q.nyc.accessfoodvendor;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,16 +16,18 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView mImageViewProfile;
 
-    private Toolbar mToolbar;
+//    private Toolbar mToolbar;
 
     private LinearLayout mButtonFriends;
     private LinearLayout mButtonReviews;
@@ -42,6 +43,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private RecyclerView mRecyclerViewPictures;
     private PicturesAdapter mPicturesAdapter;
 
+//    String truckId;
+
+    private RecyclerView mRecyclerView2;
+    private UserReviewAdapter mAdapter;
+    private Toolbar mToolbar;
     String truckId;
 
 
@@ -54,24 +60,27 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         ParseObject truck = me.getParseObject("truck");
         truckId = truck.getObjectId();
 
+        String name = truck.getString("name");
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_profile);
+        mToolbar.setTitle(name);
         mToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String name = truck.getString("name");
-
-        getSupportActionBar().setTitle(name + "'s Profile");
-        mToolbarLayout.setTitle(name + "'s Profile");
+        getSupportActionBar().setTitle(name + " - Reviews");
+        mToolbarLayout.setTitle(name + " - Reviews");
         mToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
         mToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
 
 
 
-        //  mImageViewProfile = (ImageView) findViewById(R.id.imageView_profile);
-//        mImageViewProfile = (ImageView)findViewById(R.id.imageView_profile);
-
+//        mImageViewProfile = (ImageView) findViewById(R.id.imageView_profile);
+        mImageViewProfile = (ImageView)findViewById(R.id.imageView_profile);
+        String truckPic = truck.getString("profile_url");
+        if(truckPic!=null && !truckPic.equals("")) {
+            Picasso.with(getApplicationContext()).load(truckPic).into(mImageViewProfile);
+        }
         mButtonFriends = (LinearLayout) findViewById(R.id.button_friends_list);
         mButtonReviews = (LinearLayout) findViewById(R.id.button_user_reviews);
         mButtonFavorite = (LinearLayout) findViewById(R.id.button_profile_favorite);
@@ -81,7 +90,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 //        String fontPath = "fonts/Quicksand-Regular.ttf";
 
         mTextViewFavorite = (TextView) findViewById(R.id.profile_number_favorite);
-        mTextViewFriends = (TextView) findViewById(R.id.profile_number_followers);
+        mTextViewFriends = (TextView) findViewById(R.id.profile_number_rating);
         mTextViewReviews = (TextView) findViewById(R.id.profile_number_reviews);
 
 
@@ -110,6 +119,66 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         });
 
 
+
+
+        mRecyclerView2 = (RecyclerView) findViewById(R.id.recyclerView_user_reviews);
+        mRecyclerView2.setHasFixedSize(true);
+        LinearLayoutManager lm = new LinearLayoutManager(this);
+        lm.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView2.setLayoutManager(lm);
+
+        mAdapter = new UserReviewAdapter(getApplicationContext());
+        mRecyclerView2.setAdapter(mAdapter);
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        final String today = "day" + Integer.toString(day);
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Review");
+
+        query.whereEqualTo("vendor", truck).findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if (e == null) {
+//                if(list.size()!=0){
+                    for (final ParseObject review : list) {
+
+                        final Review item = new Review();
+                        item.setTitle(review.getString("title"));
+                        item.setDescription(review.getString("description"));
+                        item.setRating(review.getInt("rating"));
+                        item.setDate(review.getCreatedAt());
+                        ParseUser reviewer = review.getParseUser("writer");
+                        String username = null;
+                        String userPicUrl =null;
+                        try {
+                            String userFirstname = reviewer.fetchIfNeeded().getString("first_name");
+                            String userLasttname = reviewer.fetchIfNeeded().getString("last_name");
+
+                            if (userFirstname != null && !userFirstname.equals("")){
+                                username = userFirstname + " " +userLasttname;
+                            }else{
+                                username = reviewer.getString("username");
+                            }
+
+                            userPicUrl = reviewer.fetchIfNeeded().getString("profile_url");
+
+
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+
+                        }
+                        item.setWriter(username);
+
+                        item.setUserPicUrl(userPicUrl);
+
+                        mAdapter.addReview(item);
+
+                    }
+                }
+            }
+        });
+
     }
 
 
@@ -120,18 +189,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onResume() {
         super.onResume();
-        setUpListeners(true);
+//        setUpListeners(true);
 
         ParseUser me = ParseUser.getCurrentUser();
         ParseObject truck = me.getParseObject("truck");
 
-        ParseRelation<ParseUser> followerRelation = truck.getRelation("followers");
-        followerRelation.getQuery().countInBackground(new CountCallback() {
-            @Override
-            public void done(int i, ParseException e) {
-                mTextViewFriends.setText(i + "");
-            }
-        });
+
 
         ParseQuery<ParseObject> favorites = ParseQuery.getQuery("Favorite");
         favorites.whereEqualTo("vendor", truck).findInBackground(new FindCallback<ParseObject>() {
@@ -141,6 +204,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        DecimalFormat df = new DecimalFormat("#0.0");
+        double rate = truck.getInt("rating");
+        String rating = df.format(rate);
+
+        mTextViewFriends.setText(rating);
 
         ParseQuery<ParseObject> reviewQuery = ParseQuery.getQuery("Review");
         reviewQuery.whereEqualTo("vendor", truck).countInBackground(new CountCallback() {
@@ -163,30 +231,30 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void setUpListeners(boolean isResumed) {
-        if (isResumed) {
-            mButtonFriends.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                }
-            });
-            mButtonReviews.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                }
-            });
-            mButtonFavorite.setOnClickListener(this);
-        } else {
-
-            mButtonFriends.setOnClickListener(null);
-            mButtonReviews.setOnClickListener(null);
-            mButtonFavorite.setOnClickListener(null);
-        }
-    }
+//    private void setUpListeners(boolean isResumed) {
+//        if (isResumed) {
+//            mButtonFriends.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
+//            mButtonReviews.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(getApplicationContext(), UserReviewActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
+//            mButtonFavorite.setOnClickListener(this);
+//        } else {
+//
+//            mButtonFriends.setOnClickListener(null);
+//            mButtonReviews.setOnClickListener(null);
+//            mButtonFavorite.setOnClickListener(null);
+//        }
+//    }
 
 
 //    private void logOut() {
@@ -198,7 +266,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //        startActivity(intent);
 //    }
-//
+
 //    @Override
 //    public void onClick(View v) {
 //        switch (v.getId()) {
