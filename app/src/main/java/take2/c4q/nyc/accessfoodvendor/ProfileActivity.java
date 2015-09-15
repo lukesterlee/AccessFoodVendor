@@ -29,10 +29,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 //    private Toolbar mToolbar;
 
-    private LinearLayout mButtonFriends;
+    private LinearLayout mButtonRatings;
     private LinearLayout mButtonReviews;
-    private LinearLayout mButtonFavorite;
-    private TextView mTextViewFriends;
+    private LinearLayout mButtonFollowers;
+    private TextView mTextViewRating;
     private TextView mTextViewReviews;
     private TextView mTextViewFavorite;
 
@@ -62,6 +62,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         String name = truck.getString("name");
 
+        TextView truckNameTop = (TextView)findViewById(R.id.truck_name_top);
+        truckNameTop.setText(name);
+        TextView truckAddress = (TextView)findViewById(R.id.truck_address);
+        truckAddress.setText("Address: " + truck.getString("address"));
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar_profile);
         mToolbar.setTitle(name);
         mToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -81,16 +86,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         if(truckPic!=null && !truckPic.equals("")) {
             Picasso.with(getApplicationContext()).load(truckPic).into(mImageViewProfile);
         }
-        mButtonFriends = (LinearLayout) findViewById(R.id.button_friends_list);
+        mButtonRatings = (LinearLayout) findViewById(R.id.button_rating);
         mButtonReviews = (LinearLayout) findViewById(R.id.button_user_reviews);
-        mButtonFavorite = (LinearLayout) findViewById(R.id.button_profile_favorite);
+        mButtonFollowers = (LinearLayout) findViewById(R.id.button_profile_favorite);
 
 
         // Font path
 //        String fontPath = "fonts/Quicksand-Regular.ttf";
 
         mTextViewFavorite = (TextView) findViewById(R.id.profile_number_favorite);
-        mTextViewFriends = (TextView) findViewById(R.id.profile_number_rating);
+        mTextViewRating = (TextView) findViewById(R.id.profile_number_rating);
         mTextViewReviews = (TextView) findViewById(R.id.profile_number_reviews);
 
 
@@ -189,7 +194,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onResume() {
         super.onResume();
-//        setUpListeners(true);
+        setUpListeners(true);
 
         ParseUser me = ParseUser.getCurrentUser();
         ParseObject truck = me.getParseObject("truck");
@@ -208,7 +213,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         double rate = truck.getInt("rating");
         String rating = df.format(rate);
 
-        mTextViewFriends.setText(rating);
+        mTextViewRating.setText(rating);
 
         ParseQuery<ParseObject> reviewQuery = ParseQuery.getQuery("Review");
         reviewQuery.whereEqualTo("vendor", truck).countInBackground(new CountCallback() {
@@ -220,20 +225,20 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        setUpListeners(false);
-//    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setUpListeners(false);
+    }
 
     @Override
     public void onClick(View v) {
 
     }
 
-//    private void setUpListeners(boolean isResumed) {
-//        if (isResumed) {
-//            mButtonFriends.setOnClickListener(new View.OnClickListener() {
+    private void setUpListeners(boolean isResumed) {
+        if (isResumed) {
+//            mButtonRatings.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View view) {
 //                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -247,14 +252,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 //                    startActivity(intent);
 //                }
 //            });
-//            mButtonFavorite.setOnClickListener(this);
-//        } else {
-//
-//            mButtonFriends.setOnClickListener(null);
-//            mButtonReviews.setOnClickListener(null);
-//            mButtonFavorite.setOnClickListener(null);
-//        }
-//    }
+//            mButtonFollowers.setOnClickListener(this);
+        } else {
+
+            mButtonRatings.setOnClickListener(null);
+            mButtonReviews.setOnClickListener(null);
+            mButtonFollowers.setOnClickListener(null);
+        }
+    }
 
 
 //    private void logOut() {

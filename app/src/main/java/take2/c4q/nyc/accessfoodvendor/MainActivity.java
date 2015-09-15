@@ -11,12 +11,7 @@ import android.widget.Toast;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParsePush;
 import com.parse.ParseUser;
-import com.parse.SendCallback;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -136,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     public void toUpdateLocation (View v){
         Intent intent = new Intent(MainActivity.this, LocationActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("truckId", truckId);
         startActivity(intent);
 //        finish();
@@ -144,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     public void toUpdateHours (View v){
         Intent intent = new Intent(MainActivity.this, HoursActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("truckId", truckId);
         startActivity(intent);
 
