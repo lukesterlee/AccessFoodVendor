@@ -58,18 +58,16 @@
 
         <activity
             android:name=".ProfileActivity"
-            android:parentActivityName=".MainActivity">
+            android:screenOrientation="portrait">
         </activity>
 
-        <activity
-            android:name=".PicturesActivity"
-            android:label="@string/title_activity_pictures" >
-        </activity>
 
         <activity
-            android:name=".MenuActivity"
-            android:label="@string/title_activity_menu" >
+            android:name=".UserReviewActivity"
+            android:screenOrientation="portrait">
         </activity>
+
+
 
 
         <activity
@@ -92,6 +90,9 @@
             android:theme="@style/AppTheme.Base"
             android:screenOrientation="portrait">
         </activity>
+
+
+
 
         <meta-data
             android:name="com.parse.APPLICATION_ID"
