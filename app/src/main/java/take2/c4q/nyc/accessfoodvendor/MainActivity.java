@@ -15,6 +15,9 @@ import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.parse.SendCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mButtonProfile;
     private Button mButtonPush;
     private TextView mTitle;
+    private String truckName;
 
     private ParseObject mTruck;
 
@@ -30,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Intent intent = getIntent();
-//        truckId= intent.getStringExtra("truck");
 
         ParseUser user = ParseUser.getCurrentUser();
         ParseObject truck = user.getParseObject("truck");
@@ -62,15 +64,10 @@ public class MainActivity extends AppCompatActivity {
         mButtonPush.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParsePush push = new ParsePush();
-                push.setChannel(mTruck.getObjectId());
-                push.setMessage("This is Test! 10% off today!!!");
-                push.sendInBackground(new SendCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        Toast.makeText(getApplicationContext(), "Sent!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+                PushDialogFragment dialog = new PushDialogFragment();
+                dialog.show(getSupportFragmentManager(), "Push");
+
             }
         });
 
@@ -81,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void done(ParseObject truck, ParseException e) {
                 mTruck = truck;
-                mTitle.setText(truck.getString("name"));
+                truckName = truck.getString("name");
+                mTitle.setText(truckName);
             }
         });
 //        mTruck.fetchInBackground(new GetCallback<ParseObject>() {

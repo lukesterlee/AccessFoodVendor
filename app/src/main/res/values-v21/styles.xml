@@ -26,7 +26,7 @@
         <!--<item name="android:timePickerDialogTheme">@style/AppTheme2</item>-->
     <!--</style>-->
 
-    <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog">
+    <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorPrimary">@color/primaryColorDark</item>
         <item name="colorPrimaryDark">@color/primaryColor</item>
         <item name="colorAccent">@color/primaryColor</item>
