@@ -84,6 +84,26 @@ public class UserReviewAdapter extends RecyclerView.Adapter<UserReviewAdapter.Us
         }
 
 
+        holder.grade1.setVisibility(View.GONE);
+        holder.grade2.setVisibility(View.GONE);
+        holder.grade3.setVisibility(View.GONE);
+        holder.grade4.setVisibility(View.GONE);
+        holder.grade5.setVisibility(View.GONE);
+
+        switch(review.getRating()) {
+            case 5:
+                holder.grade5.setVisibility(View.VISIBLE);
+            case 4:
+                holder.grade4.setVisibility(View.VISIBLE);
+            case 3:
+                holder.grade3.setVisibility(View.VISIBLE);
+            case 2:
+                holder.grade2.setVisibility(View.VISIBLE);
+            case 1:
+                holder.grade1.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     public void addReview(Review review) {
@@ -115,6 +135,11 @@ public class UserReviewAdapter extends RecyclerView.Adapter<UserReviewAdapter.Us
         protected TextView description;
         protected TextView writerName;
         protected ImageView yelpLogo;
+        protected ImageView grade1;
+        protected ImageView grade2;
+        protected ImageView grade3;
+        protected ImageView grade4;
+        protected ImageView grade5;
 
         public UserReviewHolder(View itemView) {
             super(itemView);
@@ -133,6 +158,12 @@ public class UserReviewAdapter extends RecyclerView.Adapter<UserReviewAdapter.Us
 //            rating = (TextView) itemView.findViewById(R.id.vendor_rating);
 //            hour = (TextView) itemView.findViewById(R.id.textView_hour);
 //            vendorPicture = (ImageView) itemView.findViewById(R.id.imageView_vendor);
+
+            grade1 = (ImageView) itemView.findViewById(R.id.grade_1);
+            grade2 = (ImageView) itemView.findViewById(R.id.grade_2);
+            grade3 = (ImageView) itemView.findViewById(R.id.grade_3);
+            grade4 = (ImageView) itemView.findViewById(R.id.grade_4);
+            grade5 = (ImageView) itemView.findViewById(R.id.grade_5);
 
         }
     }

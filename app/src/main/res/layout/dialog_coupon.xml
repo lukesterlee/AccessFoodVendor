@@ -60,7 +60,8 @@
             android:textColor="@color/primaryColor"
             android:id="@+id/amount"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="number" />
 
 
     </LinearLayout>
@@ -84,7 +85,8 @@
             android:textColor="@color/primaryColor"
             android:id="@+id/expire"
             android:layout_width="50dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="number" />
 
         <TextView
             android:layout_marginLeft="16dp"

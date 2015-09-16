@@ -1,10 +1,13 @@
 package take2.c4q.nyc.accessfoodvendor;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -182,49 +185,60 @@ public class PhotoActivity extends AppCompatActivity {
         }
     }
     public void save (View v){
+        if(!isNetworkAvailable()){
 
-        progressBar.setVisibility(View.VISIBLE);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
-        byte[] byteArray = stream.toByteArray();
+            Toast.makeText(getApplicationContext(), "Sorry there is no internet, please try again later", Toast.LENGTH_SHORT).show();
+        }else {
+            progressBar.setVisibility(View.VISIBLE);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+            byte[] byteArray = stream.toByteArray();
 
-        final ParseFile file = new ParseFile("picture.jpg", byteArray);
+            final ParseFile file = new ParseFile("picture.jpg", byteArray);
 
-        file.saveInBackground(new SaveCallback() {
+            file.saveInBackground(new SaveCallback() {
 
-            @Override
-            public void done(ParseException e) {
-                final ParseObject picture = new ParseObject("Picture");
-                picture.put("data", file);
+                @Override
+                public void done(ParseException e) {
+                    final ParseObject picture = new ParseObject("Picture");
+                    picture.put("data", file);
 
-                picture.put("uploader", ParseUser.getCurrentUser());
-
-
-                ParseUser user = ParseUser.getCurrentUser();
-                ParseObject truck = user.getParseObject("truck");
-                truck.fetchInBackground(new GetCallback<ParseObject>() {
-                    @Override
-                    public void done(ParseObject truck, ParseException e) {
-                        picture.put("vendor", truck);
-                        picture.saveInBackground();
-                    }
-                });
+                    picture.put("uploader", ParseUser.getCurrentUser());
 
 
-                Toast.makeText(getApplicationContext(), "uploaded", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
+                    ParseUser user = ParseUser.getCurrentUser();
+                    ParseObject truck = user.getParseObject("truck");
+                    truck.fetchInBackground(new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject truck, ParseException e) {
+                            picture.put("vendor", truck);
+                            picture.saveInBackground();
+                        }
+                    });
 
 
-            }
-        }, new ProgressCallback() {
-            @Override
-            public void done(Integer integer) {
-                // progressBar.getProgress(integer);
+                    Toast.makeText(getApplicationContext(), "uploaded", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
 
-            }
-        });
+
+                }
+            }, new ProgressCallback() {
+                @Override
+                public void done(Integer integer) {
+                    // progressBar.getProgress(integer);
+
+                }
+            });
+        }
     }
 
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
 
 }

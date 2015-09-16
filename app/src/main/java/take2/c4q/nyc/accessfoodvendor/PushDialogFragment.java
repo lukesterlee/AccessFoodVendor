@@ -1,13 +1,14 @@
 package take2.c4q.nyc.accessfoodvendor;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -98,47 +99,54 @@ public class PushDialogFragment extends DialogFragment {
         builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, int which) {
-                if (mEditTextAmount.getText() != null && mEditTextExpiration.getText() != null) {
-                    String message;
-                    String amount = mEditTextAmount.getText().toString();
-                    String type;
-                    if (isPercent) {
-                        type = "%";
-                        message = amount + type;
-                    } else {
-                        type = "$";
-                        message = type + amount;
-                    }
 
-                    int days = Integer.valueOf(mEditTextExpiration.getText().toString());
-                    Calendar today = Calendar.getInstance();
-                    today.add(Calendar.DATE, days);
-                    Date date = today.getTime();
-                    DateFormat dateFormat = new SimpleDateFormat("MMddyyyy", Locale.US);
-                    String expire = dateFormat.format(date);
-                    String objectId = mTruck.getObjectId();
-                    message += " off! Expires in " + days + " days";
+                if (!isNetworkAvailable()) {
 
-                    JSONObject data = null;
-                    try {
-                        data = new JSONObject("{\"title\": \"" + mTruck.getString("name") + " sent a coupon!\"," +
-                                "\"alert\": \"" + message + "\"," +
-                                "\"type\": \"" + type + "\"," +
-                                "\"amount\": \"" + amount + "\"," +
-                                "\"vendor\": \"" + objectId + "\"," +
-                                "\"expiration\": \"" + expire + "\"}");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    ParsePush push = new ParsePush();
-                    push.setChannel(objectId);
-                    push.setData(data);
-                    push.sendInBackground(new SendCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            dialog.cancel();
+                    Toast.makeText(getActivity(), "Sorry there is no internet, please try again later", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    if (mEditTextAmount.getText() != null && mEditTextExpiration.getText() != null) {
+                        String message;
+                        String amount = mEditTextAmount.getText().toString();
+                        String type;
+                        if (isPercent) {
+                            type = "%";
+                            message = amount + type;
+                        } else {
+                            type = "$";
+                            message = type + amount;
                         }
-                    });
+
+                        int days = Integer.valueOf(mEditTextExpiration.getText().toString());
+                        Calendar today = Calendar.getInstance();
+                        today.add(Calendar.DATE, days);
+                        Date date = today.getTime();
+                        DateFormat dateFormat = new SimpleDateFormat("MMddyyyy", Locale.US);
+                        String expire = dateFormat.format(date);
+                        String objectId = mTruck.getObjectId();
+                        message += " off! Expires in " + days + " days";
+
+                        JSONObject data = null;
+                        try {
+                            data = new JSONObject("{\"title\": \"" + mTruck.getString("name") + " sent a coupon!\"," +
+                                    "\"alert\": \"" + message + "\"," +
+                                    "\"type\": \"" + type + "\"," +
+                                    "\"amount\": \"" + amount + "\"," +
+                                    "\"vendor\": \"" + objectId + "\"," +
+                                    "\"expiration\": \"" + expire + "\"}");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        ParsePush push = new ParsePush();
+                        push.setChannel(objectId);
+                        push.setData(data);
+                        push.sendInBackground(new SendCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                dialog.cancel();
+                            }
+                        });
+                    }
                 }
 
             }
@@ -153,5 +161,12 @@ public class PushDialogFragment extends DialogFragment {
 
 
         return builder.create();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

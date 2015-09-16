@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                         user.saveInBackground();
 
                         String truckId = newVendor.getObjectId();
-                        Intent intent = new Intent(RegisterActivity.this, HoursActivity.class);
+                        Intent intent = new Intent(RegisterActivity.this, LocationRegisteringActivity.class);
                         intent.putExtra("truckId", truckId);
                         startActivity(intent);
                     }

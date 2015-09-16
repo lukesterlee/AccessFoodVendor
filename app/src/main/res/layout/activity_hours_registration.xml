@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="take2.c4q.nyc.accessfoodvendor.RegisterActivity"
+    android:orientation="vertical"
+    android:background="#03a9f4"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_centerHorizontal="true"
+        android:weightSum="1"
+        android:padding="10dp"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="118dp"
+            android:layout_height="60dp"
+            android:id="@+id/icon"
+            android:src="@drawable/whitelogo"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hours"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_weight="0.19"
+            android:paddingLeft="30dp"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        >
+
+        <TableLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:stretchColumns="*"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="0dp"
+            android:paddingRight="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:showDividers="none"
+            android:background="#ffffff"
+            android:paddingBottom="2dp"
+            android:typeface="monospace">
+
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:padding="0dp"
+                android:layout_margin="0dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:text=""
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:background="#ffffff"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:text="OPEN"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold"
+                    android:layout_weight="2"
+                    android:textSize="16dp"
+                    android:background="#ffffff"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="5dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:focusable="true"
+                    android:typeface="monospace" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:text="CLOSE"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold"
+                    android:layout_weight="2"
+                    android:textSize="16dp"
+                    android:background="#ffffff"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="5dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:typeface="monospace" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:text="Closed All Day"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold"
+                    android:layout_weight="1.5"
+                    android:textSize="14dp"
+                    android:background="#ffffff"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="5dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:typeface="monospace" />
+
+
+
+            </TableRow>
+
+            <!--MONDAY-->
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="0dp"
+                android:layout_margin="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Mon"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold|normal"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:background="#ffffff"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
+
+
+                <EditText
+                    android:id="@+id/mon_open"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <EditText
+                    android:id="@+id/mon_close"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.5"
+                    android:text="Yes"
+                    android:id="@+id/rb_mon"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:checked="false"
+                    android:background="@drawable/cell_shape"
+                    android:textSize="16dp"
+                    android:clickable = "true"  />
+
+            </TableRow>
+            <!--TUESDAY-->
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="0dp"
+                android:layout_margin="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Tue"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:background="#ffffff"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
+
+
+                <EditText
+                    android:id="@+id/tue_open"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <EditText
+                    android:id="@+id/tue_close"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.5"
+                    android:text="Yes"
+                    android:id="@+id/rb_tue"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:checked="false"
+                    android:background="@drawable/cell_shape"
+                    android:textSize="16dp" />
+
+
+            </TableRow>
+
+            <!--WED-->
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="0dp"
+                android:layout_margin="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Wed"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:background="#ffffff"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
+
+                <EditText
+                    android:id="@+id/wed_open"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <EditText
+                    android:id="@+id/wed_close"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.5"
+                    android:text="Yes"
+                    android:id="@+id/rb_wed"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:checked="false"
+                    android:background="@drawable/cell_shape"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+            <!--THU-->
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="0dp"
+                android:layout_margin="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Thu"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:background="#ffffff"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
+
+                <EditText
+                    android:id="@+id/thu_open"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <EditText
+                    android:id="@+id/thu_close"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.5"
+                    android:text="Yes"
+                    android:id="@+id/rb_thu"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:checked="false"
+                    android:background="@drawable/cell_shape"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+            <!--FRI-->
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="0dp"
+                android:layout_margin="0dp"
+                android:layout_weight="1">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Fri"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:background="#ffffff"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
+
+                <EditText
+                    android:id="@+id/fri_open"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+                <EditText
+                    android:id="@+id/fri_close"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.5"
+                    android:text="Yes"
+                    android:id="@+id/rb_fri"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:checked="false"
+                    android:background="@drawable/cell_shape"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+            <!--SAT-->
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="0dp"
+                android:layout_margin="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Sat"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:background="#ffffff"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
+
+
+                <EditText
+                    android:id="@+id/sat_open"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <EditText
+                    android:id="@+id/sat_close"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.5"
+                    android:text="Yes"
+                    android:id="@+id/rb_sat"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:checked="false"
+                    android:background="@drawable/cell_shape"
+                    android:textSize="16dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="0dp"
+                android:layout_margin="0dp"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Sun"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:background="#ffffff"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:typeface="monospace" />
+
+                <EditText
+                    android:id="@+id/sun_open"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <EditText
+                    android:id="@+id/sun_close"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="#ffffff"
+                    android:textIsSelectable="true"
+                    android:layout_weight="2"
+                    android:background="@drawable/cell_shape"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:hint="Click to enter"
+                    android:textColorHint="@color/primaryColorLight"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp" />
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.5"
+                    android:text="Yes"
+                    android:id="@+id/rb_sun"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:checked="false"
+                    android:background="@drawable/cell_shape"
+                    android:textSize="16dp" />
+            </TableRow>
+
+        </TableLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp">
+
+        <!--<Button-->
+            <!--android:id="@+id/to_location_btn"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="2"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/primaryColor"-->
+            <!--android:text="Main Page"-->
+            <!--android:background="#ffffff"-->
+            <!--android:typeface="monospace"/>-->
+
+        <Button
+            android:id="@+id/save_hours_btn"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primaryColor"
+            android:text="Save and Finish"
+            android:background="#FFEB3B"
+            android:layout_marginLeft="2dp"
+            android:typeface="monospace"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

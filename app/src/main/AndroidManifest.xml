@@ -59,14 +59,22 @@
         <activity
             android:name=".ProfileActivity"
             android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="take2.c4q.nyc.accessfoodvendor.MainActivity" />
         </activity>
 
 
         <activity
-            android:name=".UserReviewActivity"
+            android:name=".HoursRegistrationActivity"
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".LocationRegisteringActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
 
 
@@ -86,6 +94,14 @@
 
         <activity
             android:name=".PhotoActivity"
+            android:label="Additional Information"
+            android:theme="@style/AppTheme.Base"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+        <activity
+            android:name=".NoInternetActivity"
             android:label="Additional Information"
             android:theme="@style/AppTheme.Base"
             android:screenOrientation="portrait">

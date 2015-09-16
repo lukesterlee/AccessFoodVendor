@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -23,14 +22,11 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
- * Created by Hoshiko on 9/6/15.
+ * Created by Hoshiko on 9/15/15.
  */
-public class HoursActivity extends FragmentActivity {
-//    static EditText DateEdit;
+public class HoursRegistrationActivity extends FragmentActivity {
+    //    static EditText DateEdit;
     EditText monOpen;
     EditText monClose;
     EditText tueOpen;
@@ -60,7 +56,7 @@ public class HoursActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hours);
+        setContentView(R.layout.activity_hours_registration);
 
         Intent intent = getIntent();
         truckId= intent.getStringExtra("truckId");
@@ -221,7 +217,7 @@ public class HoursActivity extends FragmentActivity {
         rbSat = (CheckBox) findViewById(R.id.rb_sat);
         rbSun = (CheckBox) findViewById(R.id.rb_sun);
 
-        loadSchedulefromParse();
+
 
         rbMon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -296,7 +292,6 @@ public class HoursActivity extends FragmentActivity {
         });
 
 
-
         Button saveHoursBtn = (Button)findViewById(R.id.save_hours_btn);
         saveHoursBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -306,18 +301,15 @@ public class HoursActivity extends FragmentActivity {
                     Toast.makeText(getApplicationContext(), "Sorry there is no internet, please try again later", Toast.LENGTH_SHORT).show();
                 }else {
 
-
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
                     query.getInBackground(truckId, new GetCallback<ParseObject>() {
                         @Override
                         public void done(ParseObject currentVendor, ParseException e) {
                             if (e == null) {
-
-                                if (monOpen.getText().equals("") || monClose.getText().equals("")) {
-                                    currentVendor.put("day1", "");
-                                } else if (rbMon.isChecked()) {
+                                if (rbMon.isChecked()) {
                                     currentVendor.put("day1", "Closed");
-
+                                } else if (monOpen.getText().equals("") || monClose.getText().equals("")) {
+                                    currentVendor.put("day1", "");
                                 } else {
                                     currentVendor.put("day1",
                                             toJasonString((String.valueOf(monOpen.getText())),
@@ -387,7 +379,8 @@ public class HoursActivity extends FragmentActivity {
                                 if (rbSun.isChecked()) {
                                     currentVendor.put("day7", "Closed");
 
-                                } else if (sunOpen.getText().equals("") || sunClose.getText().equals("")) {
+                                }
+                                if (sunOpen.getText().equals("") || sunClose.getText().equals("")) {
                                     currentVendor.put("day7", "");
                                 } else {
                                     currentVendor.put("day7",
@@ -397,9 +390,15 @@ public class HoursActivity extends FragmentActivity {
 
 
                                 currentVendor.saveInBackground();
-                                Toast.makeText(HoursActivity.this, "Hours are saved!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HoursRegistrationActivity.this, "Hours are saved!", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(HoursRegistrationActivity.this, MainActivity.class);
+                                intent.putExtra("truckId", truckId);
+                                startActivity(intent);
+
 
                             }
+
 
                         }
 
@@ -409,18 +408,19 @@ public class HoursActivity extends FragmentActivity {
             }
         });
 
-        Button skipToLocationBtn = (Button)findViewById(R.id.to_location_btn);
-        skipToLocationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HoursActivity.this, MainActivity.class);
-                intent.putExtra("truckId", truckId);
-                startActivity(intent);
-            }
-        });
+//        Button skipToLocationBtn = (Button)findViewById(R.id.to_location_btn);
+//        skipToLocationBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(HoursRegistrationActivity.this, MainActivity.class);
+//                intent.putExtra("truckId", truckId);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     public String toJasonString(String time1, String time2){
+
         String result = "";
 
         if(time1.equals("") || time1 == null){
@@ -437,13 +437,12 @@ public class HoursActivity extends FragmentActivity {
             return result;
         }
 
-
     }
 
 
 
     public void showTimePickerDialog(View v) {
-      EditText editText= (EditText)v;
+        EditText editText= (EditText)v;
         DialogFragment newFragment = new TimePickerFragment(editText);
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
@@ -482,7 +481,7 @@ public class HoursActivity extends FragmentActivity {
             }
 
 
-             return new TimePickerDialog(
+            return new TimePickerDialog(
                     getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
 
@@ -493,7 +492,7 @@ public class HoursActivity extends FragmentActivity {
         }
 
         public EditText getEditText(){
-           return editText;
+            return editText;
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -527,78 +526,77 @@ public class HoursActivity extends FragmentActivity {
 
 
     }
+//
+//    public void loadSchedulefromParse(){
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
+//        query.getInBackground(truckId, new GetCallback<ParseObject>() {
+//            @Override
+//            public void done(ParseObject vendor, ParseException e) {
+//                if (e == null) {
+//
+//                    String monHours = vendor.getString("day1");
+//                    setHours(monHours, monOpen, monClose, rbMon);
+//
+//                    String tueHours = vendor.getString("day2");
+//                    setHours(tueHours, tueOpen, tueClose, rbTue);
+//
+//                    String wedHours = vendor.getString("day3");
+//                    setHours(wedHours, wedOpen, wedClose, rbWed);
+//
+//                    String thuHours = vendor.getString("day4");
+//                    setHours(thuHours, thuOpen, thuClose, rbThu);
+//
+//                    String friHours = vendor.getString("day5");
+//                    setHours(friHours, friOpen, friClose, rbFri);
+//
+//                    String satHours = vendor.getString("day6");
+//                    setHours(satHours, satOpen, satClose, rbSat);
+//
+//                    String sunHours = vendor.getString("day7");
+//                    setHours(sunHours, sunOpen, sunClose, rbSun);
+//
+//                }
+//            }
+//
+//        });
+//    }
 
-    public void loadSchedulefromParse(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
-        query.getInBackground(truckId, new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject vendor, ParseException e) {
-                if (e == null) {
+//    public void setHours(String hour, TextView holder, TextView holder2, CheckBox checkBox){
+//
+//        try {
+//            if (hour == null) {
+//                return;
+//            }else if(hour.equals("Closed")){
+//                checkBox.setChecked(!checkBox.isChecked());
+//            }else {
+//
+//                JSONObject info = new JSONObject(hour);
+//
+//                if (info != null && !info.equals("closed")) {
+//                    String opening = formatUsingColon(info.getString("openAt"));
+//                    String closing = formatUsingColon(info.getString("closeAt"));
+//
+//                    holder.setText(opening);
+//                    holder2.setText(closing);
+//                }
+//            }
+//
+//        } catch (JSONException e1) {
+//            e1.printStackTrace();
+//        }
+//
+//
+//    }
 
-                    String monHours = vendor.getString("day1");
-                    setHours(monHours, monOpen, monClose, rbMon);
-
-                    String tueHours = vendor.getString("day2");
-                    setHours(tueHours, tueOpen, tueClose, rbTue);
-
-                    String wedHours = vendor.getString("day3");
-                    setHours(wedHours, wedOpen, wedClose, rbWed);
-
-                    String thuHours = vendor.getString("day4");
-                    setHours(thuHours, thuOpen, thuClose, rbThu);
-
-                    String friHours = vendor.getString("day5");
-                    setHours(friHours, friOpen, friClose, rbFri);
-
-                    String satHours = vendor.getString("day6");
-                    setHours(satHours, satOpen, satClose, rbSat);
-
-                    String sunHours = vendor.getString("day7");
-                    setHours(sunHours, sunOpen, sunClose, rbSun);
-
-                }
-            }
-
-        });
-    }
-
-    public void setHours(String hour, TextView holder, TextView holder2, CheckBox checkBox){
-
-            try {
-                if (hour == null) {
-                    return;
-                }else if(hour.equals("Closed")){
-                    checkBox.setChecked(!checkBox.isChecked());
-                }else {
-
-                    JSONObject info = new JSONObject(hour);
-
-                    if (info != null && !info.equals("closed")) {
-                        String opening = formatUsingColon(info.getString("openAt"));
-                        String closing = formatUsingColon(info.getString("closeAt"));
-
-                        holder.setText(opening);
-                        holder2.setText(closing);
-                    }
-                }
-
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-            }
-
-
-    }
-
-    private String formatUsingColon(String hourMin) {
-        if (hourMin == null || hourMin.length() < 4){
-
-            return null;
-        }
-        String hours = hourMin.substring(0, 2);
-        String min = hourMin.substring(2, 4);
-        return hours + ":" + min;
-    }
-
+//    private String formatUsingColon(String hourMin) {
+//        if (hourMin == null || hourMin.length() < 4){
+//
+//            return null;
+//        }
+//        String hours = hourMin.substring(0, 2);
+//        String min = hourMin.substring(2, 4);
+//        return hours + ":" + min;
+//    }
     private boolean isNetworkAvailable() {
 
         ConnectivityManager connectivityManager
@@ -606,5 +604,4 @@ public class HoursActivity extends FragmentActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
 }
