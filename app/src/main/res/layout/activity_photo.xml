@@ -77,7 +77,7 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primaryColor"
-                android:text="Back"
+                android:text="Main Page"
                 android:background="#ffffff"
                 android:typeface="monospace"/>
 

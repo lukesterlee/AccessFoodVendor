@@ -1,7 +1,10 @@
 package take2.c4q.nyc.accessfoodvendor;
 
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -118,23 +121,30 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
         mapSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isNetworkAvailable()){
+
+                    Toast.makeText(getApplicationContext(), "Sorry there is no internet, please try again later", Toast.LENGTH_SHORT).show();
+                }else {
+
+
 //                addressString = (String.valueOf(crossStOne.getText()) + " & "+ (String.valueOf(crossStTwo.getText())));
-                addressString = String.valueOf(crossStOne.getText());
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
-                query.getInBackground(truckId, new GetCallback<ParseObject>() {
-                    @Override
-                    public void done(ParseObject currentVendor, ParseException e) {
-                        if (e == null) {
-                            currentVendor.put("address", addressString);
-                            ParseGeoPoint point = new ParseGeoPoint(lat, lng);
-                            currentVendor.put("location", point);
-                            currentVendor.saveInBackground();
+                    addressString = String.valueOf(crossStOne.getText());
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Vendor");
+                    query.getInBackground(truckId, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject currentVendor, ParseException e) {
+                            if (e == null) {
+                                currentVendor.put("address", addressString);
+                                ParseGeoPoint point = new ParseGeoPoint(lat, lng);
+                                currentVendor.put("location", point);
+                                currentVendor.saveInBackground();
 
-                            Toast.makeText(LocationActivity.this, "Location is saved!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LocationActivity.this, "Location is saved!", Toast.LENGTH_SHORT).show();
 
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
             }
         });
@@ -312,5 +322,13 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
                     .addApi(LocationServices.API)
                     .build();
         }
+
+    private boolean isNetworkAvailable() {
+
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     }

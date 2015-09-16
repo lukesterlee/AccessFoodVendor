@@ -1,6 +1,9 @@
 package take2.c4q.nyc.accessfoodvendor;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,76 +33,94 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ParseUser user = ParseUser.getCurrentUser();
-        ParseObject truck = user.getParseObject("truck");
-        truckId = truck.getObjectId();
-
-        mTitle = (TextView) findViewById(R.id.title);
-
-        mButtonProfile = (Button) findViewById(R.id.button_profile);
-        mButtonProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
 
-        mButtonLogOut = (Button) findViewById(R.id.log_out);
-        mButtonLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOut();
-            }
-        });
 
-        mButtonPush = (Button) findViewById(R.id.push);
-        mButtonPush.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(isNetworkAvailable()){
+            ParseUser user = ParseUser.getCurrentUser();
+            mTruck = user.getParseObject("truck");
+            mTruck.fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject truck, ParseException e) {
+                    mTruck = truck;
+                    truckName = truck.getString("name");
+                    mTitle.setText(truckName);
+                    truckId = truck.getObjectId();
+                }
+            });
+        }
 
-                PushDialogFragment dialog = new PushDialogFragment();
-                dialog.show(getSupportFragmentManager(), "Push");
+            mTitle = (TextView) findViewById(R.id.title);
 
-            }
-        });
+            mButtonProfile = (Button) findViewById(R.id.button_profile);
+            mButtonProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!isNetworkAvailable()){
 
-//        ParseUser user = ParseUser.getCurrentUser();
+                        Toast.makeText(getApplicationContext(), "Sorry there is no internet, please try again later", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        intent.putExtra("truckName", truckName);
+                        startActivity(intent);
+                    }
+                }
+            });
 
-        mTruck = user.getParseObject("truck");
-        mTruck.fetchIfNeededInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject truck, ParseException e) {
-                mTruck = truck;
-                truckName = truck.getString("name");
-                mTitle.setText(truckName);
-            }
-        });
-//        mTruck.fetchInBackground(new GetCallback<ParseObject>() {
-//            @Override
-//            public void done(ParseObject truck, ParseException e) {
+
+
+            mButtonLogOut = (Button) findViewById(R.id.log_out);
+            mButtonLogOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    logOut();
+                }
+            });
+
+            mButtonPush = (Button) findViewById(R.id.push);
+            mButtonPush.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!isNetworkAvailable()){
+
+                        Toast.makeText(getApplicationContext(), "Sorry there is no internet, please try again later", Toast.LENGTH_SHORT).show();
+                    }else {
+                        PushDialogFragment dialog = new PushDialogFragment();
+                        dialog.show(getSupportFragmentManager(), "Push");
+                    }
+
+                }
+            });
+
 //
-//            }
-//        });
 
 
 
 
-        Button addPicBtn = (Button)findViewById(R.id.pic_button);
-        addPicBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PicDialog picDialog = new PicDialog();
+            Button addPicBtn = (Button)findViewById(R.id.pic_button);
+            addPicBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                Bundle bundle = new Bundle();
-                bundle.putString("truckId", truckId);
-                picDialog.setArguments(bundle);
+                    if(!isNetworkAvailable()){
 
-                picDialog.show(getSupportFragmentManager(), "picD");
-            }
-        });
+                        Toast.makeText(getApplicationContext(), "Sorry there is no internet, please try again later", Toast.LENGTH_SHORT).show();
+                    }else {
+                        PicDialog picDialog = new PicDialog();
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("truckId", truckId);
+                        picDialog.setArguments(bundle);
+
+                        picDialog.show(getSupportFragmentManager(), "picD");
+                    }
+                }
+            });
+
+
+
 
 
     }
@@ -129,19 +150,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void toUpdateLocation (View v){
-        Intent intent = new Intent(MainActivity.this, LocationActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if(!isNetworkAvailable()){
+
+            Toast.makeText(getApplicationContext(), "Sorry there is no internet, please try again later", Toast.LENGTH_SHORT).show();
+        }else {
+
+            Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("truckId", truckId);
-        startActivity(intent);
+            intent.putExtra("truckId", truckId);
+            startActivity(intent);
 //        finish();
+        }
     }
     public void toUpdateHours (View v){
-        Intent intent = new Intent(MainActivity.this, HoursActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if(!isNetworkAvailable()){
+
+            Toast.makeText(getApplicationContext(), "Sorry there is no internet, please try again later", Toast.LENGTH_SHORT).show();
+        }else {
+            Intent intent = new Intent(MainActivity.this, HoursActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("truckId", truckId);
-        startActivity(intent);
+            intent.putExtra("truckId", truckId);
+            startActivity(intent);
+        }
 
     }
 
@@ -155,12 +187,25 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     private void logOut() {
+        if(!isNetworkAvailable()){
 
-        ParseUser.logOut();
-        Toast.makeText(getApplicationContext(), "Successfully logged out!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+            Toast.makeText(getApplicationContext(), "Sorry there is no internet, please try again later", Toast.LENGTH_SHORT).show();
+        }else {
+            ParseUser.logOut();
+            Toast.makeText(getApplicationContext(), "Successfully logged out!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+    }
+
+
+    private boolean isNetworkAvailable() {
+
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

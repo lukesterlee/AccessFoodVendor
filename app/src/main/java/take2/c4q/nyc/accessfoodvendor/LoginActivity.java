@@ -1,7 +1,10 @@
 package take2.c4q.nyc.accessfoodvendor;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -48,162 +51,164 @@ public class LoginActivity extends AppCompatActivity {
         // facebook stuff
         //FacebookSdk.sdkInitialize(getApplicationContext());
         //callbackManager = CallbackManager.Factory.create();
-
-        setContentView(R.layout.activity_login);
-
-        //FacebookSdk.clearLoggingBehaviors();
-
-        app = new ParseApplication();
-
-        signUpButton = (Button)findViewById(R.id.signupButtonID);
-        usernameEditText = (EditText)findViewById(R.id.usernameField);
-        passwordEditText = (EditText)findViewById(R.id.passwordField);
-        usernameEditText2 = (EditText)findViewById(R.id.usernameField2);
-        passwordEditText2 = (EditText)findViewById(R.id.passwordField2);
-        loginButton = (Button)findViewById(R.id.loginButton);
-        emailField = (EditText) findViewById(R.id.emailFieldID);
-        backButton = (Button) findViewById(R.id.BackButtonID);
-        continueButton = (Button) findViewById(R.id.ContinueButtonID);
-        layout = (LinearLayout) findViewById(R.id.layoutID);
-        //mButtonFacebookLogin = (LoginButton) findViewById(R.id.login_button);
-        twitterLoginButton = (Button) findViewById(R.id.twitter_login_button);
+        if(!isNetworkAvailable()){
+            Intent intent = new Intent(getApplicationContext(), NoInternetActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }else {
 
 
-        twitterLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ParseTwitterUtils.logIn(LoginActivity.this, new LogInCallback() {
-                    @Override
-                    public void done(ParseUser parseUser, ParseException e) {
-                        if (parseUser == null) {
-                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-                            Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
-                        } else if (parseUser.isNew()) {
-                            ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                            installation.put("user", parseUser);
-                            installation.saveInBackground();
-                            Toast.makeText(getApplicationContext(), "User signed up and logged in through Twitter!", Toast.LENGTH_SHORT).show();
-                            Log.d("MyApp", "User signed up and logged in through Twitter!");
-                            goToRegisterActivity();
+            setContentView(R.layout.activity_login);
 
-                        }
-                        else  {
-                            ParseObject truck = parseUser.getParseObject("truck");
-                            ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-                            installation.put("user", parseUser);
-                            installation.saveInBackground();
-                            if (truck == null) {
-                                Toast.makeText(getApplicationContext(), "User logged in through Twitter!", Toast.LENGTH_SHORT).show();
-                                Log.d("MyApp", "User logged in through Twitter!");
+            //FacebookSdk.clearLoggingBehaviors();
+
+            app = new ParseApplication();
+
+            signUpButton = (Button) findViewById(R.id.signupButtonID);
+            usernameEditText = (EditText) findViewById(R.id.usernameField);
+            passwordEditText = (EditText) findViewById(R.id.passwordField);
+            usernameEditText2 = (EditText) findViewById(R.id.usernameField2);
+            passwordEditText2 = (EditText) findViewById(R.id.passwordField2);
+            loginButton = (Button) findViewById(R.id.loginButton);
+            emailField = (EditText) findViewById(R.id.emailFieldID);
+            backButton = (Button) findViewById(R.id.BackButtonID);
+            continueButton = (Button) findViewById(R.id.ContinueButtonID);
+            layout = (LinearLayout) findViewById(R.id.layoutID);
+            //mButtonFacebookLogin = (LoginButton) findViewById(R.id.login_button);
+            twitterLoginButton = (Button) findViewById(R.id.twitter_login_button);
+
+
+            twitterLoginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ParseTwitterUtils.logIn(LoginActivity.this, new LogInCallback() {
+                        @Override
+                        public void done(ParseUser parseUser, ParseException e) {
+                            if (parseUser == null) {
+                                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                                Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
+                            } else if (parseUser.isNew()) {
+                                ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                                installation.put("user", parseUser);
+                                installation.saveInBackground();
+                                Toast.makeText(getApplicationContext(), "User signed up and logged in through Twitter!", Toast.LENGTH_SHORT).show();
+                                Log.d("MyApp", "User signed up and logged in through Twitter!");
                                 goToRegisterActivity();
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(), "User logged in through Twitter!", Toast.LENGTH_SHORT).show();
-                                Log.d("MyApp", "User logged in through Twitter!");
-                                goToMainActivity();
+
+                            } else {
+                                ParseObject truck = parseUser.getParseObject("truck");
+                                ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                                installation.put("user", parseUser);
+                                installation.saveInBackground();
+                                if (truck == null) {
+                                    Toast.makeText(getApplicationContext(), "User logged in through Twitter!", Toast.LENGTH_SHORT).show();
+                                    Log.d("MyApp", "User logged in through Twitter!");
+                                    goToRegisterActivity();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "User logged in through Twitter!", Toast.LENGTH_SHORT).show();
+                                    Log.d("MyApp", "User logged in through Twitter!");
+                                    goToMainActivity();
+                                }
                             }
                         }
+                    });
+                }
+            });
+
+
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String username = usernameEditText.getText().toString();
+                    String password = passwordEditText.getText().toString();
+
+                    username = username.trim();
+                    password = password.trim();
+
+                    if (username.isEmpty() || password.isEmpty()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                        builder.setMessage(R.string.login_error_message)
+                                .setTitle(R.string.login_error_title)
+                                .setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } else {
+                        setProgressBarIndeterminateVisibility(true);
+
+                        ParseUser.logInInBackground(username, password, new LogInCallback() {
+                            @Override
+                            public void done(ParseUser user, ParseException e) {
+                                setProgressBarIndeterminateVisibility(false);
+
+                                if (e == null) {
+                                    // Success!
+                                    goToMainActivity();
+                                    //finish();
+                                } else {
+                                    // Fail
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                    builder.setMessage(e.getMessage())
+                                            .setTitle(R.string.login_error_title)
+                                            .setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
+                            }
+                        });
                     }
-                });
-            }
-        });
-
-
-
-
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-
-                username = username.trim();
-                password = password.trim();
-
-                if (username.isEmpty() || password.isEmpty()) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setMessage(R.string.login_error_message)
-                            .setTitle(R.string.login_error_title)
-                            .setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
                 }
-                else {
-                    setProgressBarIndeterminateVisibility(true);
+            });
 
-                    ParseUser.logInInBackground(username, password, new LogInCallback() {
-                        @Override
-                        public void done(ParseUser user, ParseException e) {
-                            setProgressBarIndeterminateVisibility(false);
+            continueButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String username = usernameEditText2.getText().toString();
+                    String password = passwordEditText2.getText().toString();
+                    String email = emailField.getText().toString();
 
-                            if (e == null) {
-                                // Success!
-                                goToMainActivity();
-                                //finish();
-                            } else {
-                                // Fail
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage(e.getMessage())
-                                        .setTitle(R.string.login_error_title)
-                                        .setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
+                    username = username.trim();
+                    password = password.trim();
+                    email = email.trim();
+
+                    if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                        builder.setMessage(R.string.signup_error_message)
+                                .setTitle(R.string.signup_error_title)
+                                .setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } else {
+                        setProgressBarIndeterminateVisibility(true);
+
+                        ParseUser newUser = new ParseUser();
+                        newUser.setUsername(username);
+                        newUser.setPassword(password);
+                        newUser.setEmail(email);
+
+                        newUser.signUpInBackground(new SignUpCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                setProgressBarIndeterminateVisibility(false);
+
+                                if (e == null) {
+                                    // Success!
+                                    goToRegisterActivity();
+                                } else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                    builder.setMessage(e.getMessage())
+                                            .setTitle(R.string.signup_error_title)
+                                            .setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
-            }
-        });
-
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = usernameEditText2.getText().toString();
-                String password = passwordEditText2.getText().toString();
-                String email = emailField.getText().toString();
-
-                username = username.trim();
-                password = password.trim();
-                email = email.trim();
-
-                if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setMessage(R.string.signup_error_message)
-                            .setTitle(R.string.signup_error_title)
-                            .setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-                else {
-                    setProgressBarIndeterminateVisibility(true);
-
-                    ParseUser newUser = new ParseUser();
-                    newUser.setUsername(username);
-                    newUser.setPassword(password);
-                    newUser.setEmail(email);
-
-                    newUser.signUpInBackground(new SignUpCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            setProgressBarIndeterminateVisibility(false);
-
-                            if (e == null) {
-                                // Success!
-                                goToRegisterActivity();
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage(e.getMessage())
-                                        .setTitle(R.string.signup_error_title)
-                                        .setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
-                            }
-                        }
-                    });
-                }
-            }
-        });}
+            });
+        }
+}
 
 
     private void setUpListeners(boolean isResumed) {
@@ -299,5 +304,13 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
 //        finish();
     }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 }
 
